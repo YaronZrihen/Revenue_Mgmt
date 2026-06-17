@@ -1,1 +1,1051 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ניהול הכנסות</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #eef2f7;
+  --surface: #ffffff;
+  --primary: #1a2f52;
+  --primary-mid: #2c4a7c;
+  --accent: #10b981;
+  --accent-dark: #0d9e6e;
+  --accent-light: #d1fae5;
+  --danger: #ef4444;
+  --warning-bg: #fffbeb;
+  --warning-border: #fcd34d;
+  --warning-text: #78350f;
+  --text: #1e293b;
+  --text-muted: #64748b;
+  --border: #e2e8f0;
+  --row-alt: #f8fafc;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.05);
+  --shadow-md: 0 4px 12px rgba(0,0,0,.1);
+  --radius: 12px;
+  --radius-sm: 8px;
+}
 
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Heebo', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  direction: rtl;
+  min-height: 100vh;
+  font-size: 15px;
+}
+
+/* ── HEADER ── */
+.app-header {
+  background: var(--primary);
+  color: #fff;
+  padding: 14px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  box-shadow: var(--shadow-md);
+}
+.logo { display: flex; align-items: center; gap: 12px; }
+.logo-icon { font-size: 26px; line-height: 1; }
+.logo-text h1 { font-size: 20px; font-weight: 800; letter-spacing: -.3px; }
+.logo-text p { font-size: 12px; color: rgba(255,255,255,.55); margin-top: 1px; }
+
+.btn-google {
+  background: #fff;
+  color: var(--primary);
+  border: none;
+  padding: 9px 18px;
+  border-radius: var(--radius-sm);
+  font-family: 'Heebo', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: .15s;
+  white-space: nowrap;
+}
+.btn-google:hover { background: #f1f5f9; }
+.btn-google svg { flex-shrink: 0; }
+
+.user-zone { display: flex; align-items: center; gap: 12px; color: rgba(255,255,255,.85); font-size: 13px; }
+.btn-signout {
+  background: rgba(255,255,255,.12);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,.25);
+  padding: 6px 14px;
+  border-radius: var(--radius-sm);
+  font-family: 'Heebo', sans-serif;
+  font-size: 13px;
+  cursor: pointer;
+  transition: .15s;
+}
+.btn-signout:hover { background: rgba(255,255,255,.22); }
+
+/* ── MAIN ── */
+.main { max-width: 1280px; margin: 0 auto; padding: 28px 20px 60px; }
+
+/* ── WARNINGS ── */
+.config-warn {
+  background: var(--warning-bg);
+  border: 1px solid var(--warning-border);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  font-size: 13.5px;
+  color: var(--warning-text);
+  line-height: 1.6;
+}
+.config-warn code { background: rgba(0,0,0,.07); padding: 1px 5px; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 12px; }
+
+/* ── CONNECT SCREEN ── */
+.connect-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 58vh;
+  text-align: center;
+  gap: 14px;
+}
+.connect-screen .cs-icon { font-size: 72px; }
+.connect-screen h2 { font-size: 28px; font-weight: 800; color: var(--primary); }
+.connect-screen p { color: var(--text-muted); max-width: 380px; line-height: 1.65; }
+.btn-connect {
+  margin-top: 8px;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  padding: 14px 34px;
+  border-radius: var(--radius);
+  font-family: 'Heebo', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: .2s;
+}
+.btn-connect:hover { background: var(--primary-mid); transform: translateY(-1px); }
+
+/* ── LOADING ── */
+.loading-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40vh;
+  gap: 14px;
+  color: var(--text-muted);
+  font-size: 15px;
+}
+.spinner {
+  width: 26px; height: 26px;
+  border: 3px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin .75s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── YEAR NAV ── */
+.year-nav {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+.year-nav h2 { font-size: 30px; font-weight: 800; color: var(--primary); letter-spacing: -1px; }
+.btn-yr {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  width: 36px; height: 36px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 20px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--primary);
+  transition: .15s;
+  line-height: 1;
+}
+.btn-yr:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+.year-nav .meta { font-size: 13px; color: var(--text-muted); }
+
+/* ── ANNUAL SUMMARY ── */
+.annual-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 28px;
+}
+.sum-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  box-shadow: var(--shadow-sm);
+  border-top: 3px solid transparent;
+}
+.sum-card:nth-child(1) { border-top-color: var(--accent); }
+.sum-card:nth-child(2) { border-top-color: #f59e0b; }
+.sum-card:nth-child(3) { border-top-color: #6366f1; }
+.sum-card:nth-child(4) { border-top-color: #3b82f6; }
+.sum-card .sc-label { font-size: 11.5px; font-weight: 600; text-transform: uppercase; letter-spacing: .6px; color: var(--text-muted); }
+.sum-card .sc-value { font-size: 26px; font-weight: 800; color: var(--text); margin-top: 5px; font-feature-settings: 'tnum'; letter-spacing: -.5px; }
+.sum-card .sc-sub { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
+
+/* ── MONTH SECTION ── */
+.month-section {
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+
+.month-header {
+  background: var(--primary);
+  color: #fff;
+  padding: 13px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+  transition: background .15s;
+}
+.month-header:hover { background: var(--primary-mid); }
+
+.mh-left { display: flex; align-items: center; gap: 12px; }
+.mh-name { font-size: 17px; font-weight: 700; }
+.mh-count { font-size: 12px; color: rgba(255,255,255,.55); background: rgba(255,255,255,.1); padding: 2px 8px; border-radius: 100px; }
+
+.mh-right { display: flex; align-items: center; gap: 24px; }
+.mh-stat { text-align: center; }
+.mh-stat .st-label { font-size: 10px; color: rgba(255,255,255,.5); text-transform: uppercase; letter-spacing: .5px; }
+.mh-stat .st-value { font-size: 15px; font-weight: 600; font-feature-settings: 'tnum'; }
+.mh-total { font-size: 22px; font-weight: 800; font-feature-settings: 'tnum'; }
+.mh-empty { font-size: 13px; color: rgba(255,255,255,.4); }
+.mh-chevron { font-size: 20px; transition: transform .2s; color: rgba(255,255,255,.7); margin-right: 4px; }
+.month-section.open .mh-chevron { transform: rotate(180deg); }
+
+.month-body { display: none; }
+.month-section.open .month-body { display: block; }
+
+/* ── TABLE ── */
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+thead { background: #f1f5f9; border-bottom: 2px solid var(--border); }
+thead th {
+  padding: 9px 14px;
+  text-align: right;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  white-space: nowrap;
+}
+thead th:last-child { text-align: center; }
+
+tbody tr { border-bottom: 1px solid var(--border); transition: background .1s; }
+tbody tr:hover { background: #f8fafc; }
+tbody tr:last-child { border-bottom: none; }
+tbody tr:nth-child(even) { background: var(--row-alt); }
+tbody tr:nth-child(even):hover { background: #f1f5f9; }
+tbody td { padding: 11px 14px; }
+
+.td-date { color: var(--text-muted); font-size: 13px; font-feature-settings: 'tnum'; white-space: nowrap; }
+.td-customer strong { display: block; font-weight: 600; font-size: 14px; }
+.td-customer small { color: var(--text-muted); font-size: 12px; }
+.td-amount { font-weight: 700; font-feature-settings: 'tnum'; white-space: nowrap; }
+.td-vat { color: var(--text-muted); font-feature-settings: 'tnum'; font-size: 13px; white-space: nowrap; }
+.td-net { font-weight: 600; color: var(--accent-dark); font-feature-settings: 'tnum'; white-space: nowrap; }
+.td-notes { color: var(--text-muted); font-size: 13px; max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.td-actions { text-align: center; white-space: nowrap; }
+
+/* Payment badge */
+.pay-badge {
+  display: inline-block;
+  padding: 3px 9px;
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.pay-cash     { background: #fef3c7; color: #78350f; }
+.pay-card     { background: #dbeafe; color: #1e3a8a; }
+.pay-transfer { background: #ede9fe; color: #4c1d95; }
+.pay-bit      { background: #d1fae5; color: #064e3b; }
+.pay-paypal   { background: #cffafe; color: #164e63; }
+.pay-check    { background: #fce7f3; color: #831843; }
+.pay-other    { background: #f1f5f9; color: #475569; }
+
+/* Action buttons */
+.act-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px 7px;
+  border-radius: 6px;
+  font-size: 15px;
+  transition: .15s;
+  opacity: .5;
+}
+.act-btn:hover { opacity: 1; background: var(--border); }
+.act-btn.del:hover { background: #fee2e2; }
+
+/* ── MONTH TOTALS BAR ── */
+.month-totals {
+  background: #f0fdf4;
+  border-top: 2px solid #bbf7d0;
+  padding: 11px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.mt-label { font-weight: 600; color: var(--text-muted); font-size: 13px; }
+.mt-values { display: flex; gap: 28px; flex-wrap: wrap; }
+.mt-item .mt-lbl { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .4px; }
+.mt-item .mt-val { font-weight: 700; color: var(--text); font-feature-settings: 'tnum'; font-size: 15px; }
+.mt-item .mt-val.green { color: var(--accent-dark); }
+
+/* ── ADD ROW BAR ── */
+.add-bar {
+  padding: 10px 20px;
+  border-top: 1px solid var(--border);
+  background: #fafbfc;
+}
+.btn-add {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 7px 16px;
+  border-radius: var(--radius-sm);
+  font-family: 'Heebo', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: .15s;
+}
+.btn-add:hover { background: var(--accent-dark); }
+.btn-add .plus { font-size: 20px; line-height: 1; }
+
+/* ── MODAL ── */
+.modal-wrap {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.45);
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  backdrop-filter: blur(3px);
+}
+.modal-wrap.open { display: flex; }
+.modal {
+  background: var(--surface);
+  border-radius: 16px;
+  padding: 28px;
+  width: 520px;
+  max-width: 100%;
+  box-shadow: 0 24px 64px rgba(0,0,0,.25);
+  direction: rtl;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+}
+.modal h3 { font-size: 20px; font-weight: 800; color: var(--primary); margin-bottom: 22px; }
+
+.fgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.fg { display: flex; flex-direction: column; gap: 5px; }
+.fg.span2 { grid-column: span 2; }
+.fg label { font-size: 11.5px; font-weight: 600; text-transform: uppercase; letter-spacing: .5px; color: var(--text-muted); }
+.fg input, .fg select, .fg textarea {
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  font-family: 'Heebo', sans-serif;
+  font-size: 14px;
+  color: var(--text);
+  background: #fff;
+  transition: .15s;
+  direction: rtl;
+}
+.fg input:focus, .fg select:focus, .fg textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(16,185,129,.12);
+}
+.fg textarea { resize: vertical; height: 70px; }
+.fg .hint { font-size: 11.5px; color: var(--text-muted); margin-top: 2px; }
+
+.modal-actions { display: flex; gap: 10px; margin-top: 22px; }
+.btn-save {
+  flex: 1;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: var(--radius-sm);
+  font-family: 'Heebo', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: .15s;
+}
+.btn-save:hover { background: var(--accent-dark); }
+.btn-save:disabled { opacity: .6; cursor: not-allowed; }
+.btn-cancel {
+  background: none;
+  border: 1.5px solid var(--border);
+  padding: 12px 20px;
+  border-radius: var(--radius-sm);
+  font-family: 'Heebo', sans-serif;
+  font-size: 15px;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: .15s;
+}
+.btn-cancel:hover { background: var(--bg); }
+
+/* ── TOAST ── */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: #1e293b;
+  color: #fff;
+  padding: 11px 22px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  z-index: 999;
+  transition: transform .3s cubic-bezier(.34,1.56,.64,1);
+  pointer-events: none;
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+.toast.ok { background: var(--accent); }
+.toast.err { background: var(--danger); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .annual-grid { grid-template-columns: repeat(2, 1fr); }
+  .mh-stat:nth-child(-n+2) { display: none; }
+}
+@media (max-width: 600px) {
+  .annual-grid { grid-template-columns: 1fr; }
+  .fgrid { grid-template-columns: 1fr; }
+  .fg.span2 { grid-column: span 1; }
+  .app-header { padding: 12px 16px; }
+  .main { padding: 16px 12px 60px; }
+  thead th:nth-child(4),
+  thead th:nth-child(5),
+  thead th:nth-child(7),
+  tbody td:nth-child(4),
+  tbody td:nth-child(5),
+  tbody td:nth-child(7) { display: none; }
+}
+</style>
+</head>
+<body>
+
+<header class="app-header">
+  <div class="logo">
+    <span class="logo-icon">💰</span>
+    <div class="logo-text">
+      <h1>ניהול הכנסות</h1>
+      <p>מערכת מעקב הכנסות עסקיות</p>
+    </div>
+  </div>
+  <div id="headerAuth">
+    <button class="btn-google" onclick="handleSignIn()">
+      <svg width="18" height="18" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+      התחבר עם Google
+    </button>
+  </div>
+</header>
+
+<div class="main">
+  <div id="cfgWarn" class="config-warn" style="display:none">
+    ⚠️ <strong>הגדרת מערכת נדרשת:</strong>
+    יש לעדכן את <code>CLIENT_ID</code> ו-<code>SPREADSHEET_ID</code> בתוך הקובץ.
+    ראה הוראות מלאות ב-<code>README.md</code>.
+  </div>
+  <div id="app"></div>
+</div>
+
+<!-- Modal -->
+<div class="modal-wrap" id="modal">
+  <div class="modal">
+    <h3 id="modalTitle">➕ הוספת הכנסה</h3>
+    <div class="fgrid">
+      <div class="fg">
+        <label>תאריך</label>
+        <input type="date" id="fDate">
+      </div>
+      <div class="fg">
+        <label>שם לקוח / חברה</label>
+        <input type="text" id="fCustomer" placeholder="שם הלקוח">
+      </div>
+      <div class="fg">
+        <label>סכום כולל מע״מ (₪)</label>
+        <input type="number" id="fAmount" placeholder="0.00" step="0.01" min="0" oninput="autoVat()">
+      </div>
+      <div class="fg">
+        <label>מע״מ (₪)</label>
+        <input type="number" id="fVat" placeholder="0.00" step="0.01" min="0">
+        <span class="hint" id="vatHint">מחושב אוטומטית (18%)</span>
+      </div>
+      <div class="fg">
+        <label>אופן תשלום</label>
+        <select id="fPay">
+          <option value="מזומן">💵 מזומן</option>
+          <option value="כרטיס אשראי">💳 כרטיס אשראי</option>
+          <option value="העברה בנקאית">🏦 העברה בנקאית</option>
+          <option value="ביט">📱 ביט</option>
+          <option value="פייפאל">🌐 פייפאל</option>
+          <option value="צ׳ק">📄 צ׳ק</option>
+          <option value="אחר">אחר</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label>מס׳ חשבונית</label>
+        <input type="text" id="fInvoice" placeholder="לדוגמה: 2024-0123">
+      </div>
+      <div class="fg span2">
+        <label>הערות</label>
+        <textarea id="fNotes" placeholder="הערות נוספות..."></textarea>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-save" id="btnSave" onclick="saveEntry()">💾 שמור</button>
+      <button class="btn-cancel" onclick="closeModal()">ביטול</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ════════════════════════════════════════════
+//  ⚙️  CONFIGURATION — ערוך כאן לפני השימוש
+// ════════════════════════════════════════════
+const CFG = {
+  CLIENT_ID:      'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com',
+  SPREADSHEET_ID: 'YOUR_SPREADSHEET_ID',
+  SHEET_NAME:     'הכנסות',
+  VAT_RATE:       18 / 118,   // 18% מע"מ ישראל
+};
+
+// ════════════════════════════════════════════
+//  STATE
+// ════════════════════════════════════════════
+const S = {
+  loggedIn:  false,
+  year:      new Date().getFullYear(),
+  entries:   [],
+  open:      new Set(),
+  editing:   null,
+  loading:   false,
+};
+
+const NOW    = new Date();
+const MONTHS = ['ינואר','פברואר','מרץ','אפריל','מאי','יוני','יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'];
+
+const PAY_CLASS = {
+  'מזומן':         'pay-cash',
+  'כרטיס אשראי':  'pay-card',
+  'העברה בנקאית': 'pay-transfer',
+  'ביט':           'pay-bit',
+  'פייפאל':        'pay-paypal',
+  'צ׳ק':           'pay-check',
+};
+
+// ════════════════════════════════════════════
+//  GOOGLE AUTH
+// ════════════════════════════════════════════
+let tokenClient, gapiOk = false, gisOk = false;
+
+function gapiLoaded() {
+  gapi.load('client', async () => {
+    await gapi.client.init({});
+    await gapi.client.load('https://sheets.googleapis.com/$discovery/rest?version=v4');
+    gapiOk = true;
+    tryReady();
+  });
+}
+
+function gisLoaded() {
+  tokenClient = google.accounts.oauth2.initTokenClient({
+    client_id: CFG.CLIENT_ID,
+    scope: 'https://www.googleapis.com/auth/spreadsheets',
+    callback: async resp => {
+      if (resp.error) { toast('שגיאת אימות: ' + resp.error, 'err'); return; }
+      S.loggedIn = true;
+      renderHeader();
+      await loadData();
+    },
+  });
+  gisOk = true;
+  tryReady();
+}
+
+function tryReady() {
+  if (!gapiOk || !gisOk) return;
+  checkCfg();
+  if (gapi.client.getToken() !== null) {
+    S.loggedIn = true;
+    renderHeader();
+    loadData();
+  }
+}
+
+function handleSignIn() {
+  if (CFG.CLIENT_ID.startsWith('YOUR_')) {
+    document.getElementById('cfgWarn').style.display = 'block';
+    toast('יש להגדיר CLIENT_ID ו-SPREADSHEET_ID', 'err');
+    return;
+  }
+  if (!gapiOk || !gisOk) { toast('טוען... נסה שוב עוד רגע', 'err'); return; }
+  tokenClient.requestAccessToken({ prompt: gapi.client.getToken() ? '' : 'consent' });
+}
+
+function handleSignOut() {
+  const t = gapi.client.getToken();
+  if (t) { google.accounts.oauth2.revoke(t.access_token); gapi.client.setToken(''); }
+  S.loggedIn = false; S.entries = [];
+  renderHeader(); render();
+}
+
+function renderHeader() {
+  document.getElementById('headerAuth').innerHTML = S.loggedIn
+    ? `<div class="user-zone"><span>מחובר ל-Google</span><button class="btn-signout" onclick="handleSignOut()">התנתק</button></div>`
+    : `<button class="btn-google" onclick="handleSignIn()"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>התחבר עם Google</button>`;
+}
+
+// ════════════════════════════════════════════
+//  SHEETS API
+// ════════════════════════════════════════════
+const RANGE   = `${CFG.SHEET_NAME}!A:I`;
+const HEADERS = ['תאריך','שם לקוח','סכום כולל','מע"מ','נטו','אופן תשלום','מס׳ חשבונית','הערות'];
+
+async function ensureSheet() {
+  const r = await gapi.client.sheets.spreadsheets.get({ spreadsheetId: CFG.SPREADSHEET_ID });
+  if (!r.result.sheets.find(s => s.properties.title === CFG.SHEET_NAME)) {
+    await gapi.client.sheets.spreadsheets.batchUpdate({
+      spreadsheetId: CFG.SPREADSHEET_ID,
+      resource: { requests: [{ addSheet: { properties: { title: CFG.SHEET_NAME } } }] }
+    });
+    await gapi.client.sheets.spreadsheets.values.update({
+      spreadsheetId: CFG.SPREADSHEET_ID,
+      range: `${CFG.SHEET_NAME}!A1:H1`,
+      valueInputOption: 'RAW',
+      resource: { values: [HEADERS] }
+    });
+  }
+}
+
+async function loadData() {
+  S.loading = true; render();
+  try {
+    await ensureSheet();
+    const r = await gapi.client.sheets.spreadsheets.values.get({
+      spreadsheetId: CFG.SPREADSHEET_ID,
+      range: `${CFG.SHEET_NAME}!A2:H`,
+    });
+    S.entries = (r.result.values || []).map((row, i) => ({
+      id: i, ri: i + 2,
+      date:     row[0] || '',
+      customer: row[1] || '',
+      amount:   parseFloat(row[2]) || 0,
+      vat:      parseFloat(row[3]) || 0,
+      net:      parseFloat(row[4]) || 0,
+      payment:  row[5] || '',
+      invoice:  row[6] || '',
+      notes:    row[7] || '',
+    }));
+    S.loading = false; render();
+  } catch (e) {
+    S.loading = false; render();
+    toast('שגיאה בטעינת נתונים: ' + (e?.result?.error?.message || e.message), 'err');
+  }
+}
+
+async function apiAppend(entry) {
+  const net = entry.amount - entry.vat;
+  await gapi.client.sheets.spreadsheets.values.append({
+    spreadsheetId: CFG.SPREADSHEET_ID,
+    range: `${CFG.SHEET_NAME}!A:H`,
+    valueInputOption: 'USER_ENTERED',
+    insertDataOption: 'INSERT_ROWS',
+    resource: { values: [[entry.date, entry.customer, entry.amount, entry.vat, net.toFixed(2), entry.payment, entry.invoice, entry.notes]] }
+  });
+}
+
+async function apiUpdate(ri, entry) {
+  const net = entry.amount - entry.vat;
+  await gapi.client.sheets.spreadsheets.values.update({
+    spreadsheetId: CFG.SPREADSHEET_ID,
+    range: `${CFG.SHEET_NAME}!A${ri}:H${ri}`,
+    valueInputOption: 'USER_ENTERED',
+    resource: { values: [[entry.date, entry.customer, entry.amount, entry.vat, net.toFixed(2), entry.payment, entry.invoice, entry.notes]] }
+  });
+}
+
+async function apiDelete(ri) {
+  const meta = await gapi.client.sheets.spreadsheets.get({ spreadsheetId: CFG.SPREADSHEET_ID });
+  const sid  = meta.result.sheets.find(s => s.properties.title === CFG.SHEET_NAME).properties.sheetId;
+  await gapi.client.sheets.spreadsheets.batchUpdate({
+    spreadsheetId: CFG.SPREADSHEET_ID,
+    resource: { requests: [{ deleteDimension: { range: { sheetId: sid, dimension: 'ROWS', startIndex: ri - 1, endIndex: ri } } }] }
+  });
+}
+
+// ════════════════════════════════════════════
+//  MODAL
+// ════════════════════════════════════════════
+function openAdd(month) {
+  S.editing = null;
+  document.getElementById('modalTitle').textContent = '➕ הוספת הכנסה';
+  const today = NOW;
+  const m = (month || today.getMonth() + 1).toString().padStart(2,'0');
+  const d = (month && month !== today.getMonth()+1) ? '01' : today.getDate().toString().padStart(2,'0');
+  const y = (month && S.year !== today.getFullYear()) ? S.year : (month ? S.year : today.getFullYear());
+  document.getElementById('fDate').value    = `${y}-${m}-${d}`;
+  document.getElementById('fCustomer').value = '';
+  document.getElementById('fAmount').value  = '';
+  document.getElementById('fVat').value     = '';
+  document.getElementById('fPay').value     = 'כרטיס אשראי';
+  document.getElementById('fInvoice').value = '';
+  document.getElementById('fNotes').value   = '';
+  document.getElementById('vatHint').textContent = 'מחושב אוטומטית (18%)';
+  document.getElementById('modal').classList.add('open');
+}
+
+function openEdit(id) {
+  const e = S.entries.find(x => x.id === id);
+  if (!e) return;
+  S.editing = id;
+  document.getElementById('modalTitle').textContent = '✏️ עריכת הכנסה';
+  document.getElementById('fDate').value    = e.date;
+  document.getElementById('fCustomer').value = e.customer;
+  document.getElementById('fAmount').value  = e.amount;
+  document.getElementById('fVat').value     = e.vat;
+  document.getElementById('fPay').value     = e.payment;
+  document.getElementById('fInvoice').value = e.invoice;
+  document.getElementById('fNotes').value   = e.notes;
+  document.getElementById('vatHint').textContent = 'ניתן לעריכה ידנית';
+  document.getElementById('modal').classList.add('open');
+}
+
+function closeModal() { document.getElementById('modal').classList.remove('open'); S.editing = null; }
+
+function autoVat() {
+  const a = parseFloat(document.getElementById('fAmount').value) || 0;
+  const v = a * CFG.VAT_RATE;
+  document.getElementById('fVat').value = v > 0 ? v.toFixed(2) : '';
+  document.getElementById('vatHint').textContent = v > 0 ? `נטו: ₪${fmt(a - v)}` : 'מחושב אוטומטית (18%)';
+}
+
+async function saveEntry() {
+  const date     = document.getElementById('fDate').value;
+  const customer = document.getElementById('fCustomer').value.trim();
+  const amount   = parseFloat(document.getElementById('fAmount').value);
+  const vat      = parseFloat(document.getElementById('fVat').value) || 0;
+  const payment  = document.getElementById('fPay').value.replace(/^.+\s/, '');
+  const invoice  = document.getElementById('fInvoice').value.trim();
+  const notes    = document.getElementById('fNotes').value.trim();
+
+  if (!date || !customer || isNaN(amount) || amount <= 0) {
+    toast('יש למלא תאריך, שם לקוח וסכום', 'err'); return;
+  }
+
+  const btn = document.getElementById('btnSave');
+  btn.disabled = true; btn.textContent = 'שומר...';
+
+  const cleanPay = payment.replace(/[\u{1F300}-\u{1F9FF}]/gu, '').trim();
+
+  try {
+    const entry = { date, customer, amount, vat, payment: cleanPay, invoice, notes };
+    if (S.editing !== null) {
+      const ex = S.entries.find(x => x.id === S.editing);
+      await apiUpdate(ex.ri, entry);
+      toast('ההכנסה עודכנה ✓', 'ok');
+    } else {
+      await apiAppend(entry);
+      toast('ההכנסה נוספה ✓', 'ok');
+    }
+    closeModal();
+    await loadData();
+  } catch (e) {
+    toast('שגיאה בשמירה: ' + (e?.result?.error?.message || e.message), 'err');
+  } finally {
+    btn.disabled = false; btn.textContent = '💾 שמור';
+  }
+}
+
+async function deleteEntry(id) {
+  const e = S.entries.find(x => x.id === id);
+  if (!e || !confirm(`למחוק את ההכנסה של "${e.customer}" — ₪${fmt(e.amount)}?`)) return;
+  try {
+    await apiDelete(e.ri);
+    toast('נמחק ✓', 'ok');
+    await loadData();
+  } catch (err) {
+    toast('שגיאה במחיקה: ' + (err?.result?.error?.message || err.message), 'err');
+  }
+}
+
+// ════════════════════════════════════════════
+//  RENDER
+// ════════════════════════════════════════════
+function render() {
+  const app = document.getElementById('app');
+
+  if (!S.loggedIn) {
+    app.innerHTML = `
+      <div class="connect-screen">
+        <div class="cs-icon">📊</div>
+        <h2>ניהול הכנסות עסקיות</h2>
+        <p>מעקב מלא אחר הכנסות, לקוחות, מע"מ ותשלומים — הכל נשמר ב-Google Sheets שלך.</p>
+        <button class="btn-connect" onclick="handleSignIn()">
+          <svg width="20" height="20" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="white"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="white"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="white"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="white"/></svg>
+          התחבר עם Google
+        </button>
+      </div>`;
+    return;
+  }
+
+  if (S.loading) {
+    app.innerHTML = `<div class="loading-box"><div class="spinner"></div>טוען נתונים...</div>`;
+    return;
+  }
+
+  const yEntries = S.entries.filter(e => e.date.startsWith(String(S.year)));
+
+  // Totals
+  const totInc   = sum(yEntries, 'amount');
+  const totVat   = sum(yEntries, 'vat');
+  const totNet   = totInc - totVat;
+  const maxMonth = Math.max(1, ...Object.values(groupByMonth(yEntries)).map(arr => sum(arr, 'amount')));
+
+  let h = `
+    <div class="year-nav">
+      <button class="btn-yr" onclick="changeYear(-1)">&#8249;</button>
+      <h2>${S.year}</h2>
+      <button class="btn-yr" onclick="changeYear(1)">&#8250;</button>
+      <span class="meta">${yEntries.length} רשומות</span>
+    </div>
+
+    <div class="annual-grid">
+      <div class="sum-card">
+        <div class="sc-label">סה"כ הכנסות</div>
+        <div class="sc-value">₪${fmt(totInc)}</div>
+        <div class="sc-sub">${yEntries.length} עסקאות</div>
+      </div>
+      <div class="sum-card">
+        <div class="sc-label">סה"כ מע"מ</div>
+        <div class="sc-value">₪${fmt(totVat)}</div>
+        <div class="sc-sub">לרשות המסים</div>
+      </div>
+      <div class="sum-card">
+        <div class="sc-label">הכנסה נטו</div>
+        <div class="sc-value">₪${fmt(totNet)}</div>
+        <div class="sc-sub">לפני מס הכנסה</div>
+      </div>
+      <div class="sum-card">
+        <div class="sc-label">ממוצע חודשי</div>
+        <div class="sc-value">₪${fmt(yEntries.length ? totInc / 12 : 0)}</div>
+        <div class="sc-sub">ברוטו</div>
+      </div>
+    </div>`;
+
+  // Monthly sections
+  for (let m = 1; m <= 12; m++) {
+    const mes   = (S.entries.filter(e => e.date.startsWith(String(S.year)+'–'+String(m).padStart(2,'0')) || (e.date.startsWith(String(S.year)) && parseInt(e.date.split('-')[1]) === m)));
+    const sorted= [...mes].sort((a, b) => a.date.localeCompare(b.date));
+    const mInc  = sum(sorted, 'amount');
+    const mVat  = sum(sorted, 'vat');
+    const mNet  = mInc - mVat;
+    const isOpen= S.open.has(m);
+    const bar   = mInc > 0 ? Math.round((mInc / maxMonth) * 100) : 0;
+
+    h += `<div class="month-section${isOpen ? ' open' : ''}" id="ms${m}">
+      <div class="month-header" onclick="toggleMonth(${m})">
+        <div class="mh-left">
+          <span class="mh-name">${MONTHS[m-1]}</span>
+          <span class="mh-count">${sorted.length} רשומות</span>
+        </div>
+        <div class="mh-right">`;
+
+    if (sorted.length > 0) {
+      h += `
+          <div class="mh-stat">
+            <div class="st-label">מע"מ</div>
+            <div class="st-value">₪${fmt(mVat)}</div>
+          </div>
+          <div class="mh-stat">
+            <div class="st-label">נטו</div>
+            <div class="st-value">₪${fmt(mNet)}</div>
+          </div>
+          <div class="mh-total">₪${fmt(mInc)}</div>`;
+    } else {
+      h += `<span class="mh-empty">אין רשומות</span>`;
+    }
+
+    h += `<span class="mh-chevron">⌄</span>
+        </div>
+      </div>
+
+      <div class="month-body">`;
+
+    if (sorted.length > 0) {
+      h += `<div class="table-wrap"><table>
+          <thead><tr>
+            <th>תאריך</th>
+            <th>לקוח</th>
+            <th>סכום כולל</th>
+            <th>מע"מ</th>
+            <th>נטו</th>
+            <th>תשלום</th>
+            <th>הערות</th>
+            <th></th>
+          </tr></thead>
+          <tbody>`;
+
+      sorted.forEach(e => {
+        const pCls = PAY_CLASS[e.payment] || 'pay-other';
+        h += `<tr>
+            <td class="td-date">${fmtDate(e.date)}</td>
+            <td class="td-customer">
+              <strong>${esc(e.customer)}</strong>
+              ${e.invoice ? `<small>חשבונית ${esc(e.invoice)}</small>` : ''}
+            </td>
+            <td class="td-amount">₪${fmt(e.amount)}</td>
+            <td class="td-vat">₪${fmt(e.vat)}</td>
+            <td class="td-net">₪${fmt(e.amount - e.vat)}</td>
+            <td><span class="pay-badge ${pCls}">${esc(e.payment)}</span></td>
+            <td class="td-notes" title="${esc(e.notes)}">${esc(e.notes)}</td>
+            <td class="td-actions">
+              <button class="act-btn" onclick="openEdit(${e.id})" title="עריכה">✏️</button>
+              <button class="act-btn del" onclick="deleteEntry(${e.id})" title="מחיקה">🗑️</button>
+            </td>
+          </tr>`;
+      });
+
+      h += `</tbody></table></div>
+        <div class="month-totals">
+          <span class="mt-label">סיכום ${MONTHS[m-1]}</span>
+          <div class="mt-values">
+            <div class="mt-item">
+              <div class="mt-lbl">עסקאות</div>
+              <div class="mt-val">${sorted.length}</div>
+            </div>
+            <div class="mt-item">
+              <div class="mt-lbl">סה"כ ברוטו</div>
+              <div class="mt-val">₪${fmt(mInc)}</div>
+            </div>
+            <div class="mt-item">
+              <div class="mt-lbl">מע"מ</div>
+              <div class="mt-val">₪${fmt(mVat)}</div>
+            </div>
+            <div class="mt-item">
+              <div class="mt-lbl">נטו</div>
+              <div class="mt-val green">₪${fmt(mNet)}</div>
+            </div>
+          </div>
+        </div>`;
+    }
+
+    h += `<div class="add-bar">
+          <button class="btn-add" onclick="openAdd(${m})">
+            <span class="plus">+</span> הוסף הכנסה ל${MONTHS[m-1]}
+          </button>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  app.innerHTML = h;
+}
+
+// ════════════════════════════════════════════
+//  HELPERS
+// ════════════════════════════════════════════
+function toggleMonth(m) {
+  S.open.has(m) ? S.open.delete(m) : S.open.add(m);
+  const el = document.getElementById('ms'+m);
+  if (el) el.classList.toggle('open', S.open.has(m));
+}
+
+function changeYear(d) { S.year += d; S.open = new Set(); render(); }
+
+function groupByMonth(entries) {
+  const g = {};
+  entries.forEach(e => {
+    const m = parseInt(e.date.split('-')[1]);
+    (g[m] = g[m] || []).push(e);
+  });
+  return g;
+}
+
+function sum(arr, key) { return arr.reduce((s, e) => s + (e[key] || 0), 0); }
+
+function fmt(n) {
+  return (Math.round(n * 100) / 100).toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+function fmtDate(d) {
+  if (!d) return '';
+  const [y, m, day] = d.split('-');
+  return `${day}/${m}/${y}`;
+}
+
+function esc(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function checkCfg() {
+  if (CFG.CLIENT_ID.startsWith('YOUR_') || CFG.SPREADSHEET_ID.startsWith('YOUR_'))
+    document.getElementById('cfgWarn').style.display = 'block';
+}
+
+let toastT;
+function toast(msg, type = '') {
+  const el = document.getElementById('toast');
+  el.textContent = msg; el.className = `toast show ${type}`;
+  clearTimeout(toastT);
+  toastT = setTimeout(() => el.classList.remove('show'), 3200);
+}
+
+// ════════════════════════════════════════════
+//  INIT
+// ════════════════════════════════════════════
+document.getElementById('modal').addEventListener('click', e => { if (e.target === e.currentTarget) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+window.addEventListener('DOMContentLoaded', () => {
+  S.open.add(NOW.getMonth() + 1); // auto-open current month
+  checkCfg();
+  render();
+});
+</script>
+
+<script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
+<script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
+</body>
+</html>
