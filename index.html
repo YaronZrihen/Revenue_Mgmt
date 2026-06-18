@@ -16,12 +16,12 @@
   --danger:  #ef4444;
   --text:    #1e293b;
   --muted:   #64748b;
-  --border:  #e2e8f0;
-  /* Row colors — light & solid */
+  --border:  #dde3ec;
+  /* ── Row colors: white / warm sage alternating ── */
   --r-odd:   #ffffff;
-  --r-even:  #eef5fd;
-  --r-hover: #dceefb;
-  --sh:      0 1px 3px rgba(0,0,0,.08);
+  --r-even:  #f0f7f1;
+  --r-hover: #daeedd;
+  --sh:      0 1px 3px rgba(0,0,0,.07);
   --sh-md:   0 4px 14px rgba(0,0,0,.1);
   --rad:     12px;
   --rad-s:   8px;
@@ -50,11 +50,11 @@ body{font-family:'Heebo',system-ui,sans-serif;background:var(--bg);color:var(--t
 .pwd-wrap input:focus{border-color:var(--acc)}
 .pwd-wrap input::placeholder{color:rgba(255,255,255,.4)}
 .pwd-err{color:#fca5a5;font-size:13px;min-height:18px}
-.btn-pwd{background:var(--acc);color:#fff;border:none;padding:10px 28px;border-radius:var(--rad-s);font-family:'Heebo',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:.15s}
+.btn-pwd{background:var(--acc);color:#fff;border:none;padding:10px 28px;border-radius:var(--rad-s);font-family:'Heebo',sans-serif;font-size:15px;font-weight:700;cursor:pointer}
 .btn-pwd:hover{background:var(--acc-d)}
 
 /* ── MAIN ── */
-.main{max-width:1300px;margin:0 auto;padding:22px 18px 60px}
+.main{max-width:1400px;margin:0 auto;padding:22px 18px 60px}
 .cfg-warn{background:#fffbeb;border:1px solid #fcd34d;border-radius:var(--rad-s);padding:10px 15px;margin-bottom:14px;font-size:13px;color:#78350f}
 .cfg-warn code{background:rgba(0,0,0,.07);padding:1px 5px;border-radius:3px;font-family:monospace;font-size:12px}
 
@@ -81,12 +81,13 @@ body{font-family:'Heebo',system-ui,sans-serif;background:var(--bg);color:var(--t
 .ym{font-size:13px;color:var(--muted)}
 
 /* ── ANNUAL CARDS ── */
-.ann-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:22px}
-.sc{background:var(--surface);border-radius:var(--rad);padding:15px 18px;box-shadow:var(--sh);border-top:3px solid}
-.sc.c1{border-top-color:#10b981}.sc.c2{border-top-color:#f59e0b}.sc.c3{border-top-color:#6366f1}.sc.c4{border-top-color:#ef4444}
-.sc-lbl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--muted)}
-.sc-val{font-size:23px;font-weight:800;margin-top:4px;font-feature-settings:'tnum'}
-.sc-sub{font-size:12px;color:var(--muted);margin-top:2px}
+.ann-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:22px}
+.sc{background:var(--surface);border-radius:var(--rad);padding:14px 16px;box-shadow:var(--sh);border-top:3px solid}
+.sc.c1{border-top-color:#10b981}.sc.c2{border-top-color:#f59e0b}
+.sc.c3{border-top-color:#ef4444}.sc.c4{border-top-color:#6366f1}.sc.c5{border-top-color:#0ea5e9}
+.sc-lbl{font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--muted)}
+.sc-val{font-size:21px;font-weight:800;margin-top:4px;font-feature-settings:'tnum'}
+.sc-sub{font-size:11.5px;color:var(--muted);margin-top:2px}
 
 /* ── MONTH SECTION ── */
 .ms{background:var(--surface);border-radius:var(--rad);box-shadow:var(--sh);margin-bottom:12px;overflow:hidden}
@@ -95,7 +96,7 @@ body{font-family:'Heebo',system-ui,sans-serif;background:var(--bg);color:var(--t
 .mh-l{display:flex;align-items:center;gap:10px}
 .mh-name{font-size:16px;font-weight:700}
 .mh-cnt{font-size:12px;color:rgba(255,255,255,.5);background:rgba(255,255,255,.1);padding:1px 8px;border-radius:100px}
-.mh-r{display:flex;align-items:center;gap:18px}
+.mh-r{display:flex;align-items:center;gap:16px}
 .mhs{text-align:center}
 .mhs-l{font-size:9px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px}
 .mhs-v{font-size:13px;font-weight:600;font-feature-settings:'tnum'}
@@ -110,27 +111,31 @@ body{font-family:'Heebo',system-ui,sans-serif;background:var(--bg);color:var(--t
 .tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
 table{width:100%;border-collapse:collapse;font-size:14px}
 thead{background:#f1f5f9;border-bottom:2px solid var(--border)}
-thead th{padding:8px 12px;text-align:right;font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;white-space:nowrap}
+thead th{padding:8px 11px;text-align:right;font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;white-space:nowrap}
 thead th:last-child{text-align:center}
+
 tbody tr{border-bottom:1px solid var(--border);transition:background .1s}
-tbody tr:nth-child(odd){background:var(--r-odd)}
+tbody tr:nth-child(odd) {background:var(--r-odd)}
 tbody tr:nth-child(even){background:var(--r-even)}
 tbody tr:hover{background:var(--r-hover)!important}
 tbody tr:last-child{border-bottom:none}
-tbody td{padding:10px 12px}
+tbody td{padding:10px 11px}
+
 .c-date{color:var(--muted);font-size:13px;font-feature-settings:'tnum';white-space:nowrap}
-.c-cust strong{font-weight:600}.c-cust .inv{color:var(--muted);font-size:11.5px}
+.c-cust strong{font-weight:600}
+.c-cust .inv{color:var(--muted);font-size:11.5px}
 .c-amt{font-weight:700;font-feature-settings:'tnum';white-space:nowrap}
 .c-amt.neg{color:var(--danger)}
-.c-vat{color:var(--muted);font-size:13px;font-feature-settings:'tnum'}
-.c-net{font-weight:600;color:#0d6b4a;font-feature-settings:'tnum'}
-.c-tax{font-weight:500;color:#b45309;font-size:13px;font-feature-settings:'tnum'}
-.c-note{color:var(--muted);font-size:13px;max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.c-vat{color:#b45309;font-size:13px;font-feature-settings:'tnum'}
+.c-tax{color:#7c3aed;font-size:13px;font-feature-settings:'tnum'}
+.c-net{font-weight:700;color:#065f46;font-feature-settings:'tnum'}
+.c-mat{color:#0369a1;font-size:13px;font-feature-settings:'tnum'}
+.c-note{color:var(--muted);font-size:13px;max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .c-act{text-align:center;white-space:nowrap}
-.novat{font-size:11px;color:var(--muted);background:var(--border);padding:1px 6px;border-radius:4px}
+.tag-no{font-size:11px;color:var(--muted);background:var(--border);padding:1px 6px;border-radius:4px}
 
 /* payment badges */
-.pb{display:inline-block;padding:2px 9px;border-radius:100px;font-size:12px;font-weight:500;white-space:nowrap}
+.pb{display:inline-block;padding:2px 8px;border-radius:100px;font-size:12px;font-weight:500;white-space:nowrap}
 .p-cash{background:#fef3c7;color:#78350f}.p-card{background:#dbeafe;color:#1e3a8a}
 .p-bank{background:#ede9fe;color:#4c1d95}.p-bit{background:#d1fae5;color:#064e3b}
 .p-pp{background:#cffafe;color:#164e63}.p-chk{background:#fce7f3;color:#831843}
@@ -142,11 +147,11 @@ tbody td{padding:10px 12px}
 /* ── MONTH TOTALS ── */
 .mt{background:#f0fdf4;border-top:2px solid #bbf7d0;padding:10px 18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
 .mt-lbl{font-weight:600;color:var(--muted);font-size:13px}
-.mt-vals{display:flex;gap:22px;flex-wrap:wrap}
+.mt-vals{display:flex;gap:18px;flex-wrap:wrap}
 .mti{text-align:center}
 .mti-l{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
-.mti-v{font-weight:700;font-feature-settings:'tnum';font-size:15px}
-.mti-v.g{color:#0d6b4a}.mti-v.o{color:#b45309}
+.mti-v{font-weight:700;font-feature-settings:'tnum';font-size:14px}
+.mti-v.g{color:#065f46}.mti-v.o{color:#b45309}.mti-v.p{color:#7c3aed}.mti-v.b{color:#0369a1}
 
 /* ── ADD BAR ── */
 .add-bar{padding:9px 18px;border-top:1px solid var(--border);background:#fafbfc}
@@ -157,20 +162,27 @@ tbody td{padding:10px 12px}
 /* ── MODAL ── */
 .mwrap{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(2px)}
 .mwrap.open{display:flex}
-.modal{background:var(--surface);border-radius:16px;padding:24px;width:520px;max-width:100%;max-height:calc(100vh - 32px);overflow-y:auto;box-shadow:0 24px 60px rgba(0,0,0,.22);direction:rtl}
+.modal{background:var(--surface);border-radius:16px;padding:24px;width:560px;max-width:100%;max-height:calc(100vh - 32px);overflow-y:auto;box-shadow:0 24px 60px rgba(0,0,0,.22);direction:rtl}
 .modal h3{font-size:19px;font-weight:800;color:var(--pri);margin-bottom:18px}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
 .fg{display:flex;flex-direction:column;gap:4px}
-.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .fg.s2{grid-column:span 2}
 .fg label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--muted)}
 .fg input,.fg select,.fg textarea{border:1.5px solid var(--border);border-radius:var(--rad-s);padding:9px 11px;font-family:'Heebo',sans-serif;font-size:14px;color:var(--text);background:#fff;transition:.15s;direction:rtl}
 .fg input:focus,.fg select:focus,.fg textarea:focus{outline:none;border-color:var(--acc);box-shadow:0 0 0 3px rgba(16,185,129,.1)}
-.fg textarea{resize:vertical;height:64px}
-.hint{font-size:11.5px;color:var(--muted);margin-top:2px}
-.chk-row{display:flex;align-items:center;gap:10px;padding:9px 12px;background:#f8fafc;border-radius:var(--rad-s);border:1.5px solid var(--border)}
-.chk-row input[type=checkbox]{width:17px;height:17px;cursor:pointer;accent-color:var(--acc)}
-.chk-row label{font-size:14px;font-weight:500;color:var(--text);cursor:pointer;text-transform:none;letter-spacing:0}
-.vat-grp{transition:opacity .2s}
+.fg textarea{resize:vertical;height:60px}
+.hint{font-size:11.5px;color:var(--muted);margin-top:2px;line-height:1.5}
+
+/* checkbox rows */
+.chk-pair{display:grid;grid-template-columns:1fr 1fr;gap:11px;grid-column:span 2}
+.chk-row{display:flex;align-items:center;gap:9px;padding:9px 12px;background:#f8fafc;border-radius:var(--rad-s);border:1.5px solid var(--border);cursor:pointer}
+.chk-row:hover{border-color:var(--acc)}
+.chk-row input[type=checkbox]{width:16px;height:16px;cursor:pointer;accent-color:var(--acc);flex-shrink:0}
+.chk-row span{font-size:13.5px;font-weight:500;color:var(--text)}
+
+/* section divider inside modal */
+.form-sep{grid-column:span 2;border:none;border-top:1px solid var(--border);margin:2px 0}
+
 .mac{display:flex;gap:10px;margin-top:18px}
 .btn-save{flex:1;background:var(--acc);color:#fff;border:none;padding:11px 22px;border-radius:var(--rad-s);font-family:'Heebo',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:.15s}
 .btn-save:hover{background:var(--acc-d)}.btn-save:disabled{opacity:.6;cursor:not-allowed}
@@ -183,14 +195,15 @@ tbody td{padding:10px 12px}
 .toast.ok{background:var(--acc)}.toast.err{background:var(--danger)}
 
 /* ── MOBILE ── */
-@media(max-width:780px){
-  .ann-grid{grid-template-columns:repeat(2,1fr)}
-  .mhs:nth-child(-n+2){display:none}
+@media(max-width:900px){
+  .ann-grid{grid-template-columns:repeat(3,1fr)}
+  .mhs:nth-child(n+4){display:none}
 }
 @media(max-width:640px){
   .main{padding:12px 10px 60px}
   .ann-grid{grid-template-columns:repeat(2,1fr);gap:8px}
   .sc-val{font-size:18px}
+  .mhs:nth-child(n+2){display:none}
   /* Card view */
   table,tbody{display:block}
   thead{display:none}
@@ -198,6 +211,7 @@ tbody td{padding:10px 12px}
     display:grid;grid-template-columns:1fr 1fr;
     margin:8px 8px;border-radius:10px;overflow:hidden;
     border:1px solid var(--border)!important;
+    border-bottom:1px solid var(--border)!important;
     box-shadow:var(--sh);background:var(--surface)!important
   }
   tbody tr:hover{background:var(--surface)!important}
@@ -207,11 +221,12 @@ tbody td{padding:10px 12px}
   .c-act{grid-column:span 2;flex-direction:row!important;justify-content:flex-end;gap:8px;background:#f8fafc;border-bottom:none!important}
   .c-act::before{display:none}
   .c-note{max-width:100%}
-  /* Bottom-sheet modal on mobile */
+  /* bottom-sheet modal */
   .mwrap{align-items:flex-end;padding:0}
   .modal{border-radius:16px 16px 0 0;width:100%;max-height:92vh}
   .fgrid{grid-template-columns:1fr}
   .fg.s2{grid-column:span 1}
+  .chk-pair{grid-template-columns:1fr;grid-column:span 1}
 }
 @media(max-width:400px){
   .ann-grid{grid-template-columns:1fr}
@@ -252,6 +267,8 @@ tbody td{padding:10px 12px}
   <div class="modal">
     <h3 id="mTitle">➕ הוספת רשומה</h3>
     <div class="fgrid">
+
+      <!-- Row 1: date + customer -->
       <div class="fg">
         <label>תאריך</label>
         <input type="date" id="fDate">
@@ -260,20 +277,48 @@ tbody td{padding:10px 12px}
         <label>שם לקוח / חברה</label>
         <input type="text" id="fCust" placeholder="שם הלקוח">
       </div>
+
+      <!-- Row 2: amount -->
       <div class="fg s2">
         <label>סכום (₪) — מותר גם שלילי</label>
-        <input type="number" id="fAmt" placeholder="0.00" step="0.01" oninput="autoVat()">
+        <input type="number" id="fAmt" placeholder="0.00" step="0.01" oninput="onAmtChange()">
       </div>
-      <div class="fg s2">
-        <div class="chk-row">
-          <input type="checkbox" id="fHasVat" checked onchange="toggleVat()">
-          <label for="fHasVat">הסכום כולל מע"מ (18% — ניתן לשינוי ב-CFG)</label>
-        </div>
+
+      <!-- Row 3: checkboxes side-by-side -->
+      <div class="chk-pair">
+        <label class="chk-row" for="fHasVat">
+          <input type="checkbox" id="fHasVat" checked onchange="onVatToggle()">
+          <span>כולל מע"מ 18%</span>
+        </label>
+        <label class="chk-row" for="fHasTax">
+          <input type="checkbox" id="fHasTax" checked onchange="onTaxToggle()">
+          <span>הפרשת מיסים 17%</span>
+        </label>
       </div>
-      <div class="fg vat-grp" id="vatRow">
+
+      <!-- Row 4: VAT + tax fields -->
+      <div class="fg" id="vatRow">
         <label>מע"מ (₪)</label>
         <input type="number" id="fVat" placeholder="0.00" step="0.01" oninput="updHint()">
-        <span class="hint" id="vatHint">מחושב אוטומטית</span>
+      </div>
+      <div class="fg" id="taxRow">
+        <label>מיסים (₪)</label>
+        <input type="number" id="fTax" placeholder="0.00" step="0.01" oninput="updHint()">
+      </div>
+
+      <!-- Hint -->
+      <div class="fg s2">
+        <span class="hint" id="calcHint" style="padding:6px 10px;background:#f0fdf4;border-radius:6px;border:1px solid #bbf7d0">
+          מלא סכום לחישוב אוטומטי
+        </span>
+      </div>
+
+      <hr class="form-sep">
+
+      <!-- Row 5: materials + payment -->
+      <div class="fg">
+        <label>הוצאות חומרים (₪)</label>
+        <input type="number" id="fMat" placeholder="0.00" step="0.01" min="0" oninput="updHint()">
       </div>
       <div class="fg">
         <label>אופן תשלום</label>
@@ -287,14 +332,17 @@ tbody td{padding:10px 12px}
           <option value="אחר">אחר</option>
         </select>
       </div>
-      <div class="fg s2">
+
+      <!-- Row 6: invoice + notes -->
+      <div class="fg">
         <label>מס׳ חשבונית</label>
-        <input type="text" id="fInv" placeholder="מס׳ חשבונית (אופציונלי)">
+        <input type="text" id="fInv" placeholder="מס׳ חשבונית">
       </div>
-      <div class="fg s2">
+      <div class="fg">
         <label>הערות</label>
-        <textarea id="fNotes" placeholder="הערות נוספות..."></textarea>
+        <textarea id="fNotes" placeholder="הערות..."></textarea>
       </div>
+
     </div>
     <div class="mac">
       <button class="btn-save" id="btnSave" onclick="saveEntry()">💾 שמור</button>
@@ -307,15 +355,15 @@ tbody td{padding:10px 12px}
 
 <script>
 // ══════════════════════════════════════════════════
-//  ⚙️  CONFIG — ערוך לפני שימוש
+//  ⚙️  CONFIG
 // ══════════════════════════════════════════════════
 const CFG = {
-  CLIENT_ID:       '165321324693-jo1oiqo6hgghckl7f0bedgat5mjqhm9i.apps.googleusercontent.com',
-  SPREADSHEET_ID:  '1Bi96Qf-TELHpuUtg_S2ZKF6-TkYydQGmaCmWXDBRpS0',
-  SHEET_NAME:      'הכנסות',
-  VAT_RATE:        18 / 118,   // 18% מע"מ
-  TAX_RATE:        0.17,       // 17% הפרשה למס הכנסה — ניתן לשינוי
-  SITE_PASSWORD:   '',         // '' = ללא הגנה | 'mysecret' = עם סיסמא
+  CLIENT_ID:      'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com',
+  SPREADSHEET_ID: 'YOUR_SPREADSHEET_ID',
+  SHEET_NAME:     'הכנסות',
+  VAT_RATE:       18 / 118,   // 18% מע"מ
+  TAX_RATE:       0.17,       // 17% מיסים — ניתן לשינוי
+  SITE_PASSWORD:  '',         // '' = ללא הגנה
 };
 
 // ══════════════════════════════════════════════════
@@ -328,285 +376,315 @@ const S = {
   open: new Set([NOW.getMonth() + 1]),
   editing: null, loading: false,
 };
-const MONTHS = ['ינואר','פברואר','מרץ','אפריל','מאי','יוני','יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'];
-const PC = {'מזומן':'p-cash','כרטיס אשראי':'p-card','העברה בנקאית':'p-bank','ביט':'p-bit','פייפאל':'p-pp','צ׳ק':'p-chk'};
+
+const MONTHS = ['ינואר','פברואר','מרץ','אפריל','מאי','יוני',
+                'יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'];
+const PC = {'מזומן':'p-cash','כרטיס אשראי':'p-card','העברה בנקאית':'p-bank',
+            'ביט':'p-bit','פייפאל':'p-pp','צ׳ק':'p-chk'};
 
 // ══════════════════════════════════════════════════
-//  TOKEN PERSISTENCE — login stays saved ~1 hour
+//  SHEET COLUMNS (A:M = 13 cols)
+//  A  date
+//  B  customer
+//  C  amount
+//  D  hasVat   (כן/לא)
+//  E  vat
+//  F  hasTax   (כן/לא)
+//  G  tax      (מיסים)
+//  H  net      (amount - vat - tax)
+//  I  materials
+//  J  payment
+//  K  invoice
+//  L  notes
 // ══════════════════════════════════════════════════
-const TK = 'inc_mgr_tok';
-function saveTok(r) {
-  S.token = r.access_token;
-  try { localStorage.setItem(TK, JSON.stringify({t: r.access_token, exp: Date.now() + (r.expires_in - 60) * 1000})); } catch {}
-}
-function loadTok() {
-  try {
-    const d = JSON.parse(localStorage.getItem(TK));
-    if (d && d.exp > Date.now()) { S.token = d.t; return true; }
-  } catch {}
-  return false;
-}
-function clearTok() { S.token = null; try { localStorage.removeItem(TK); } catch {} }
+const HDRS = ['תאריך','שם לקוח','סכום','כולל מע"מ','מע"מ',
+              'כולל מיסים','מיסים','נטו','חומרים','אופן תשלום','חשבונית','הערות'];
 
 // ══════════════════════════════════════════════════
-//  SITE PASSWORD (optional)
+//  TOKEN PERSISTENCE
 // ══════════════════════════════════════════════════
-function checkPwd() {
-  if (!CFG.SITE_PASSWORD) return true;
-  if (sessionStorage.getItem('inc_auth') === btoa(CFG.SITE_PASSWORD)) return true;
-  document.getElementById('pwdWrap').style.display = 'flex';
+const TK = 'inc_mgr_v3_tok';
+function saveTok(r){ S.token=r.access_token; try{localStorage.setItem(TK,JSON.stringify({t:r.access_token,exp:Date.now()+(r.expires_in-60)*1000}))}catch{} }
+function loadTok(){ try{ const d=JSON.parse(localStorage.getItem(TK)); if(d&&d.exp>Date.now()){S.token=d.t;return true} }catch{} return false }
+function clearTok(){ S.token=null; try{localStorage.removeItem(TK)}catch{} }
+
+// ══════════════════════════════════════════════════
+//  SITE PASSWORD
+// ══════════════════════════════════════════════════
+function checkPwd(){
+  if(!CFG.SITE_PASSWORD)return true;
+  if(sessionStorage.getItem('inc_auth')===btoa(CFG.SITE_PASSWORD))return true;
+  document.getElementById('pwdWrap').style.display='flex';
   return false;
 }
-function submitPwd() {
-  const v = document.getElementById('pwdInput').value;
-  if (v === CFG.SITE_PASSWORD) {
-    sessionStorage.setItem('inc_auth', btoa(v));
-    document.getElementById('pwdWrap').style.display = 'none';
+function submitPwd(){
+  const v=document.getElementById('pwdInput').value;
+  if(v===CFG.SITE_PASSWORD){
+    sessionStorage.setItem('inc_auth',btoa(v));
+    document.getElementById('pwdWrap').style.display='none';
     boot();
   } else {
-    document.getElementById('pwdErr').textContent = 'סיסמא שגויה';
-    document.getElementById('pwdInput').value = '';
+    document.getElementById('pwdErr').textContent='סיסמא שגויה';
+    document.getElementById('pwdInput').value='';
     document.getElementById('pwdInput').focus();
   }
 }
 
 // ══════════════════════════════════════════════════
-//  GOOGLE AUTH — GIS only, NO gapi.js (fixes COOP error)
-//  Note: The old gapi.js caused "Cross-Origin-Opener-Policy"
-//  console warnings; dropping it eliminates that error.
+//  GOOGLE AUTH (GIS only — no gapi.js = no COOP error)
 // ══════════════════════════════════════════════════
-let tokenClient, gisReady = false;
+let tokenClient, gisReady=false;
 
-function gisLoaded() {
-  if (CFG.CLIENT_ID.startsWith('YOUR_')) { render(); return; }
-
-  tokenClient = google.accounts.oauth2.initTokenClient({
+function gisLoaded(){
+  if(CFG.CLIENT_ID.startsWith('YOUR_')){render();return}
+  tokenClient=google.accounts.oauth2.initTokenClient({
     client_id: CFG.CLIENT_ID,
     scope: 'https://www.googleapis.com/auth/spreadsheets',
-    callback: async resp => {
-      if (resp.error) {
-        // Silent sign-in failed — show login button (normal, not an error)
-        if (['interaction_required','immediate_failed','access_denied'].includes(resp.error)) {
-          if (!S.loggedIn) render();
-        } else {
-          toast('שגיאת Google: ' + resp.error, 'err');
-        }
+    callback: async resp=>{
+      if(resp.error){
+        if(['interaction_required','immediate_failed','access_denied'].includes(resp.error)){
+          if(!S.loggedIn)render();
+        } else toast('שגיאת Google: '+resp.error,'err');
         return;
       }
-      saveTok(resp);
-      S.loggedIn = true;
-      renderHdr(); await loadData();
+      saveTok(resp); S.loggedIn=true; renderHdr(); await loadData();
     },
   });
-  gisReady = true;
-
-  // If token already loaded from localStorage, nothing more to do
-  if (S.loggedIn) return;
-
-  // Try silent sign-in in background (works if user previously consented)
-  try { tokenClient.requestAccessToken({ prompt: 'none' }); } catch {}
+  gisReady=true;
+  if(!S.loggedIn) try{tokenClient.requestAccessToken({prompt:'none'})}catch{}
 }
 
-function signIn() {
-  if (!gisReady) { toast('טוען...', 'err'); return; }
-  tokenClient.requestAccessToken({ prompt: 'select_account' });
+function signIn(){
+  if(!gisReady){toast('טוען...','err');return}
+  tokenClient.requestAccessToken({prompt:'select_account'});
 }
-
-function signOut() {
-  if (S.token) try { google.accounts.oauth2.revoke(S.token, () => {}); } catch {}
-  clearTok(); S.loggedIn = false; S.entries = [];
+function signOut(){
+  if(S.token)try{google.accounts.oauth2.revoke(S.token,()=>{})}catch{}
+  clearTok(); S.loggedIn=false; S.entries=[];
   renderHdr(); render();
 }
 
 // ══════════════════════════════════════════════════
-//  SHEETS API — direct fetch, no gapi.js needed
+//  SHEETS API — direct fetch
 // ══════════════════════════════════════════════════
-const SB = () => `https://sheets.googleapis.com/v4/spreadsheets/${CFG.SPREADSHEET_ID}`;
-async function sf(path, method = 'GET', body = null) {
-  const opts = { method, headers: { Authorization: `Bearer ${S.token}`, 'Content-Type': 'application/json' } };
-  if (body !== null) opts.body = JSON.stringify(body);
-  const r = await fetch(SB() + path, opts);
-  const d = await r.json();
-  if (!r.ok) {
-    if (r.status === 401) { clearTok(); S.loggedIn = false; render(); throw new Error('פג תוקף — התחבר מחדש'); }
-    throw new Error(d.error?.message || `שגיאה ${r.status}`);
+const SB=()=>`https://sheets.googleapis.com/v4/spreadsheets/${CFG.SPREADSHEET_ID}`;
+async function sf(path,method='GET',body=null){
+  const opts={method,headers:{Authorization:`Bearer ${S.token}`,'Content-Type':'application/json'}};
+  if(body!==null)opts.body=JSON.stringify(body);
+  const r=await fetch(SB()+path,opts), d=await r.json();
+  if(!r.ok){
+    if(r.status===401){clearTok();S.loggedIn=false;render();throw new Error('פג תוקף — התחבר מחדש')}
+    throw new Error(d.error?.message||`שגיאה ${r.status}`)
   }
   return d;
 }
+const SN=()=>encodeURIComponent(CFG.SHEET_NAME);
 
-const HDRS = ['תאריך','שם לקוח','סכום','כולל מע"מ','מע"מ','נטו','מס הכנסה','אופן תשלום','חשבונית','הערות'];
-const SN = () => encodeURIComponent(CFG.SHEET_NAME);
-
-async function ensureSheet() {
-  const info = await sf('');
-  if (!info.sheets?.find(s => s.properties.title === CFG.SHEET_NAME)) {
-    await sf(':batchUpdate', 'POST', { requests: [{ addSheet: { properties: { title: CFG.SHEET_NAME } } }] });
-    await sf(`/values/${SN()}!A1:J1?valueInputOption=RAW`, 'PUT', { values: [HDRS] });
+async function ensureSheet(){
+  const info=await sf('');
+  if(!info.sheets?.find(s=>s.properties.title===CFG.SHEET_NAME)){
+    await sf(':batchUpdate','POST',{requests:[{addSheet:{properties:{title:CFG.SHEET_NAME}}}]});
+    await sf(`/values/${SN()}!A1:L1?valueInputOption=RAW`,'PUT',{values:[HDRS]});
   }
 }
 
-async function loadData() {
-  S.loading = true; render();
-  try {
+async function loadData(){
+  S.loading=true; render();
+  try{
     await ensureSheet();
-    const res = await sf(`/values/${SN()}!A2:J`);
-    S.entries = (res.values || []).map((row, i) => {
-      const amount = parseFloat(row[2]) || 0;
-      const hasVat = row[3] !== 'לא';
-      const vat    = parseFloat(row[4]) || 0;
-      const net    = parseFloat(row[5]) || (hasVat ? amount - vat : amount);
-      const tax    = parseFloat(row[6]) || 0;
-      return { id: i, ri: i + 2, date: row[0]||'', customer: row[1]||'', amount, hasVat, vat, net, tax, payment: row[7]||'', invoice: row[8]||'', notes: row[9]||'' };
+    const res=await sf(`/values/${SN()}!A2:L`);
+    S.entries=(res.values||[]).map((row,i)=>{
+      const amount   = parseFloat(row[2])||0;
+      const hasVat   = row[3]!=='לא';
+      const vat      = parseFloat(row[4])||0;
+      const hasTax   = row[5]!=='לא';
+      const tax      = parseFloat(row[6])||0;
+      const net      = parseFloat(row[7])||(amount-(hasVat?vat:0)-(hasTax?tax:0));
+      const materials= parseFloat(row[8])||0;
+      return{id:i,ri:i+2,
+        date:row[0]||'',customer:row[1]||'',amount,hasVat,vat,hasTax,tax,net,materials,
+        payment:row[9]||'',invoice:row[10]||'',notes:row[11]||''};
     });
-    S.loading = false; render();
-  } catch (e) { S.loading = false; render(); toast(e.message, 'err'); }
+    S.loading=false; render();
+  }catch(e){S.loading=false;render();toast(e.message,'err')}
 }
 
-function eRow(e) {
-  const net = e.hasVat ? e.amount - e.vat : e.amount;
-  const tax = net * CFG.TAX_RATE;
-  return [e.date, e.customer, e.amount, e.hasVat?'כן':'לא', e.hasVat?+e.vat.toFixed(2):0, +net.toFixed(2), +tax.toFixed(2), e.payment, e.invoice, e.notes];
+function eRow(e){
+  const vat  = e.hasVat ? e.vat  : 0;
+  const tax  = e.hasTax ? e.tax  : 0;
+  const net  = e.amount - vat - tax;
+  return[e.date,e.customer,e.amount,
+         e.hasVat?'כן':'לא', e.hasVat?+e.vat.toFixed(2):0,
+         e.hasTax?'כן':'לא', e.hasTax?+e.tax.toFixed(2):0,
+         +net.toFixed(2), +e.materials,
+         e.payment,e.invoice,e.notes];
 }
-async function apiAdd(e) {
-  await sf(`/values/${SN()}!A:J:append?valueInputOption=USER_ENTERED&insertDataOption=INSERT_ROWS`, 'POST', { values: [eRow(e)] });
+async function apiAdd(e){
+  await sf(`/values/${SN()}!A:L:append?valueInputOption=USER_ENTERED&insertDataOption=INSERT_ROWS`,'POST',{values:[eRow(e)]});
 }
-async function apiUpd(ri, e) {
-  await sf(`/values/${SN()}!A${ri}:J${ri}?valueInputOption=USER_ENTERED`, 'PUT', { values: [eRow(e)] });
+async function apiUpd(ri,e){
+  await sf(`/values/${SN()}!A${ri}:L${ri}?valueInputOption=USER_ENTERED`,'PUT',{values:[eRow(e)]});
 }
-async function apiDel(ri) {
-  const info = await sf('');
-  const sid = info.sheets?.find(s => s.properties.title === CFG.SHEET_NAME)?.properties.sheetId;
-  await sf(':batchUpdate', 'POST', { requests: [{ deleteDimension: { range: { sheetId: sid, dimension: 'ROWS', startIndex: ri - 1, endIndex: ri } } }] });
+async function apiDel(ri){
+  const info=await sf('');
+  const sid=info.sheets?.find(s=>s.properties.title===CFG.SHEET_NAME)?.properties.sheetId;
+  await sf(':batchUpdate','POST',{requests:[{deleteDimension:{range:{sheetId:sid,dimension:'ROWS',startIndex:ri-1,endIndex:ri}}}]});
 }
 
 // ══════════════════════════════════════════════════
-//  MODAL
+//  MODAL LOGIC
 // ══════════════════════════════════════════════════
-function openAdd(m) {
-  S.editing = null;
-  document.getElementById('mTitle').textContent = '➕ הוספת רשומה';
-  const mm = String(m).padStart(2,'0'), y = S.year;
-  const dd = (m === NOW.getMonth()+1 && y === NOW.getFullYear()) ? String(NOW.getDate()).padStart(2,'0') : '01';
-  setF({ date:`${y}-${mm}-${dd}`, customer:'', amount:'', hasVat:true, vat:'', payment:'כרטיס אשראי', invoice:'', notes:'' });
+function openAdd(m){
+  S.editing=null;
+  document.getElementById('mTitle').textContent='➕ הוספת רשומה';
+  const mm=String(m).padStart(2,'0'), y=S.year;
+  const dd=(m===NOW.getMonth()+1&&y===NOW.getFullYear())?String(NOW.getDate()).padStart(2,'0'):'01';
+  setF({date:`${y}-${mm}-${dd}`,customer:'',amount:'',hasVat:true,vat:'',hasTax:true,tax:'',materials:'',payment:'כרטיס אשראי',invoice:'',notes:''});
   document.getElementById('modal').classList.add('open');
 }
-function openEdit(id) {
-  const e = S.entries.find(x => x.id === id); if (!e) return;
-  S.editing = id;
-  document.getElementById('mTitle').textContent = '✏️ עריכת רשומה';
-  setF(e); document.getElementById('modal').classList.add('open');
+function openEdit(id){
+  const e=S.entries.find(x=>x.id===id); if(!e)return;
+  S.editing=id;
+  document.getElementById('mTitle').textContent='✏️ עריכת רשומה';
+  setF(e);
+  document.getElementById('modal').classList.add('open');
 }
-function setF(e) {
-  document.getElementById('fDate').value   = e.date || '';
-  document.getElementById('fCust').value   = e.customer || '';
-  document.getElementById('fAmt').value    = (e.amount !== undefined && e.amount !== '') ? e.amount : '';
-  document.getElementById('fHasVat').checked = e.hasVat !== false;
-  document.getElementById('fVat').value    = e.vat || '';
-  document.getElementById('fPay').value    = e.payment || 'כרטיס אשראי';
-  document.getElementById('fInv').value    = e.invoice || '';
-  document.getElementById('fNotes').value  = e.notes || '';
-  toggleVat();
+function setF(e){
+  document.getElementById('fDate').value   = e.date||'';
+  document.getElementById('fCust').value   = e.customer||'';
+  document.getElementById('fAmt').value    = (e.amount!==undefined&&e.amount!=='') ? e.amount : '';
+  document.getElementById('fHasVat').checked = e.hasVat!==false;
+  document.getElementById('fVat').value    = e.vat||'';
+  document.getElementById('fHasTax').checked = e.hasTax!==false;
+  document.getElementById('fTax').value    = e.tax||'';
+  document.getElementById('fMat').value    = e.materials||'';
+  document.getElementById('fPay').value    = e.payment||'כרטיס אשראי';
+  document.getElementById('fInv').value    = e.invoice||'';
+  document.getElementById('fNotes').value  = e.notes||'';
+  syncToggles(); updHint();
 }
-function closeModal() { document.getElementById('modal').classList.remove('open'); S.editing = null; }
+function closeModal(){ document.getElementById('modal').classList.remove('open'); S.editing=null; }
 
-function toggleVat() {
-  const has = document.getElementById('fHasVat').checked;
-  const vr = document.getElementById('vatRow');
-  vr.style.opacity = has ? '1' : '0.4';
-  vr.style.pointerEvents = has ? '' : 'none';
-  if (!has) document.getElementById('fVat').value = '0';
-  autoVat();
+function syncToggles(){
+  const hasV=document.getElementById('fHasVat').checked;
+  const hasT=document.getElementById('fHasTax').checked;
+  const vr=document.getElementById('vatRow');
+  const tr=document.getElementById('taxRow');
+  vr.style.opacity=hasV?'1':'0.4'; vr.style.pointerEvents=hasV?'':'none';
+  tr.style.opacity=hasT?'1':'0.4'; tr.style.pointerEvents=hasT?'':'none';
+  if(!hasV) document.getElementById('fVat').value='0';
+  if(!hasT) document.getElementById('fTax').value='0';
 }
-function autoVat() {
-  const a = parseFloat(document.getElementById('fAmt').value) || 0;
-  const has = document.getElementById('fHasVat').checked;
-  if (has && a) document.getElementById('fVat').value = (a * CFG.VAT_RATE).toFixed(2);
-  else if (!has) document.getElementById('fVat').value = '0';
+function onVatToggle(){ syncToggles(); recalc(); }
+function onTaxToggle(){ syncToggles(); recalc(); }
+function onAmtChange(){ recalc(); }
+
+function recalc(){
+  const a=parseFloat(document.getElementById('fAmt').value)||0;
+  const hasV=document.getElementById('fHasVat').checked;
+  const hasT=document.getElementById('fHasTax').checked;
+  // VAT = 18/118 of gross amount
+  const vat = hasV && a ? a*CFG.VAT_RATE : 0;
+  if(hasV && a) document.getElementById('fVat').value=vat.toFixed(2);
+  // Tax = TAX_RATE of (amount - vat)
+  const tax = hasT && a ? (a - vat)*CFG.TAX_RATE : 0;
+  if(hasT && a) document.getElementById('fTax').value=tax.toFixed(2);
   updHint();
 }
-function updHint() {
-  const a   = parseFloat(document.getElementById('fAmt').value) || 0;
-  const has = document.getElementById('fHasVat').checked;
-  const v   = has ? (parseFloat(document.getElementById('fVat').value) || 0) : 0;
-  const net = has ? (a - v) : a;
-  const tax = net * CFG.TAX_RATE;
-  document.getElementById('vatHint').textContent = a
-    ? `נטו: ₪${fmt(net)} | הפרשת מס (${Math.round(CFG.TAX_RATE*100)}%): ₪${fmt(tax)}`
-    : 'מחושב אוטומטית';
+
+function updHint(){
+  const a   =parseFloat(document.getElementById('fAmt').value)||0;
+  const hasV=document.getElementById('fHasVat').checked;
+  const hasT=document.getElementById('fHasTax').checked;
+  const vat =hasV?(parseFloat(document.getElementById('fVat').value)||0):0;
+  const tax =hasT?(parseFloat(document.getElementById('fTax').value)||0):0;
+  const mat =parseFloat(document.getElementById('fMat').value)||0;
+  const net =a-vat-tax;
+  const profit=net-mat;
+  const h=document.getElementById('calcHint');
+  if(!a){h.textContent='מלא סכום לחישוב אוטומטי';return}
+  h.innerHTML=
+    `<strong>נטו (לאחר מע"מ ומיסים):</strong> ₪${fmt(net)}`+
+    (mat?` &nbsp;|&nbsp; <strong>חומרים:</strong> ₪${fmt(mat)} &nbsp;|&nbsp; <strong>רווח:</strong> ₪${fmt(profit)}`:'');
 }
 
-async function saveEntry() {
-  const date     = document.getElementById('fDate').value;
-  const customer = document.getElementById('fCust').value.trim();
-  const amount   = parseFloat(document.getElementById('fAmt').value);
-  const hasVat   = document.getElementById('fHasVat').checked;
-  const vat      = hasVat ? (parseFloat(document.getElementById('fVat').value) || 0) : 0;
-  const payment  = document.getElementById('fPay').value;
-  const invoice  = document.getElementById('fInv').value.trim();
-  const notes    = document.getElementById('fNotes').value.trim();
+async function saveEntry(){
+  const date    =document.getElementById('fDate').value;
+  const customer=document.getElementById('fCust').value.trim();
+  const amount  =parseFloat(document.getElementById('fAmt').value);
+  const hasVat  =document.getElementById('fHasVat').checked;
+  const vat     =hasVat?(parseFloat(document.getElementById('fVat').value)||0):0;
+  const hasTax  =document.getElementById('fHasTax').checked;
+  const tax     =hasTax?(parseFloat(document.getElementById('fTax').value)||0):0;
+  const materials=parseFloat(document.getElementById('fMat').value)||0;
+  const payment =document.getElementById('fPay').value;
+  const invoice =document.getElementById('fInv').value.trim();
+  const notes   =document.getElementById('fNotes').value.trim();
 
-  if (!date || !customer || isNaN(amount)) { toast('יש למלא תאריך, שם לקוח וסכום', 'err'); return; }
+  if(!date||!customer||isNaN(amount)){toast('יש למלא תאריך, שם לקוח וסכום','err');return}
 
-  const btn = document.getElementById('btnSave');
-  btn.disabled = true; btn.textContent = 'שומר...';
-  try {
-    const entry = { date, customer, amount, hasVat, vat, payment, invoice, notes };
-    if (S.editing !== null) {
-      const ex = S.entries.find(x => x.id === S.editing);
-      await apiUpd(ex.ri, entry); toast('הרשומה עודכנה ✓', 'ok');
-    } else {
-      await apiAdd(entry); toast('הרשומה נוספה ✓', 'ok');
+  const btn=document.getElementById('btnSave');
+  btn.disabled=true; btn.textContent='שומר...';
+  try{
+    const entry={date,customer,amount,hasVat,vat,hasTax,tax,materials,payment,invoice,notes};
+    if(S.editing!==null){
+      const ex=S.entries.find(x=>x.id===S.editing);
+      await apiUpd(ex.ri,entry); toast('הרשומה עודכנה ✓','ok');
+    }else{
+      await apiAdd(entry); toast('הרשומה נוספה ✓','ok');
     }
     closeModal(); await loadData();
-  } catch (e) { toast('שגיאה: ' + e.message, 'err'); }
-  finally { btn.disabled = false; btn.textContent = '💾 שמור'; }
+  }catch(e){toast('שגיאה: '+e.message,'err')}
+  finally{btn.disabled=false;btn.textContent='💾 שמור'}
 }
 
-async function deleteEntry(id) {
-  const e = S.entries.find(x => x.id === id);
-  if (!e || !confirm(`למחוק רשומה של "${e.customer}"?`)) return;
-  try { await apiDel(e.ri); toast('נמחק ✓', 'ok'); await loadData(); }
-  catch (err) { toast('שגיאה: ' + err.message, 'err'); }
+async function deleteEntry(id){
+  const e=S.entries.find(x=>x.id===id);
+  if(!e||!confirm(`למחוק רשומה של "${e.customer}"?`))return;
+  try{await apiDel(e.ri);toast('נמחק ✓','ok');await loadData()}
+  catch(err){toast('שגיאה: '+err.message,'err')}
 }
 
 // ══════════════════════════════════════════════════
 //  RENDER
 // ══════════════════════════════════════════════════
-const GSvg = s => `<svg width="${s}" height="${s}" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>`;
+const GSvg=s=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>`;
 
-function renderHdr() {
-  document.getElementById('hdrAuth').innerHTML = S.loggedIn
-    ? `<div class="user-zone"><span class="udot"></span>מחובר<button class="btn-out" onclick="signOut()">התנתק</button></div>`
-    : `<button class="btn-google" onclick="signIn()">${GSvg(18)} התחבר עם Google</button>`;
+function renderHdr(){
+  document.getElementById('hdrAuth').innerHTML=S.loggedIn
+    ?`<div class="user-zone"><span class="udot"></span>מחובר<button class="btn-out" onclick="signOut()">התנתק</button></div>`
+    :`<button class="btn-google" onclick="signIn()">${GSvg(18)} התחבר עם Google</button>`;
 }
 
-function render() {
-  const app = document.getElementById('app');
+function render(){
+  const app=document.getElementById('app');
 
-  if (!S.loggedIn) {
-    app.innerHTML = `<div class="conn-screen">
+  if(!S.loggedIn){
+    app.innerHTML=`<div class="conn-screen">
       <div class="cs-icon">📊</div>
       <h2>ניהול הכנסות עסקיות</h2>
-      <p>הנתונים נשמרים ב-Google Sheets שלך. לאחר ההתחברות הראשונה, הכניסה תישמר אוטומטית לשעה.</p>
+      <p>הנתונים נשמרים ב-Google Sheets שלך. לאחר ההתחברות הראשונה, הכניסה נשמרת אוטומטית.</p>
       <button class="btn-conn" onclick="signIn()">${GSvg(20)} התחבר עם Google</button>
-      <div class="priv-note">🔒 <strong>רוצה גישה פרטית בלבד?</strong><br>
-        אפשרות א׳: הגדר <code>SITE_PASSWORD</code> בקוד (סיסמא פשוטה).<br>
-        אפשרות ב׳: <a href="https://www.cloudflare.com/products/zero-trust/access/" target="_blank">Cloudflare Access</a> — חינמי, Google-login מלא לפני הכניסה לאתר.
-      </div>
+      <div class="priv-note">🔒 <strong>גישה פרטית:</strong><br>
+        א׳ — הגדר <code>SITE_PASSWORD</code> בקוד.<br>
+        ב׳ — <a href="https://www.cloudflare.com/products/zero-trust/access/" target="_blank">Cloudflare Access</a> (חינמי) — OAuth מלא לפני הכניסה לאתר.</div>
     </div>`;
     return;
   }
+  if(S.loading){app.innerHTML=`<div class="loading-box"><div class="spinner"></div>טוען...</div>`;return}
 
-  if (S.loading) { app.innerHTML = `<div class="loading-box"><div class="spinner"></div>טוען...</div>`; return; }
+  const ye=S.entries.filter(e=>e.date.startsWith(String(S.year)));
 
-  const ye = S.entries.filter(e => e.date.startsWith(String(S.year)));
-  const tI = sum(ye,'amount'), tV = sum(ye,'vat'), tN = tI - tV, tT = sum(ye,'tax');
+  // annual totals
+  const tAmt=sum(ye,'amount'), tVat=sum(ye,'vat'), tTax=sum(ye,'tax');
+  const tNet=tAmt-tVat-tTax, tMat=sum(ye,'materials');
 
-  const byM = {};
-  for (let m = 1; m <= 12; m++) byM[m] = [];
-  ye.forEach(e => { const m = parseInt(e.date.split('-')[1]); if (byM[m]) byM[m].push(e); });
+  // group by month
+  const byM={};
+  for(let m=1;m<=12;m++) byM[m]=[];
+  ye.forEach(e=>{const m=parseInt(e.date.split('-')[1]);if(byM[m])byM[m].push(e)});
 
-  let h = `
+  let h=`
     <div class="year-nav">
       <button class="btn-yr" onclick="chgYear(-1)">&#8249;</button>
       <h2>${S.year}</h2>
@@ -614,125 +692,128 @@ function render() {
       <span class="ym">${ye.length} רשומות</span>
     </div>
     <div class="ann-grid">
-      <div class="sc c1"><div class="sc-lbl">סה"כ הכנסות</div><div class="sc-val">₪${fmt(tI)}</div><div class="sc-sub">${ye.length} רשומות</div></div>
-      <div class="sc c2"><div class="sc-lbl">מע"מ לרשות המסים</div><div class="sc-val">₪${fmt(tV)}</div><div class="sc-sub">רבעוני / שנתי</div></div>
-      <div class="sc c3"><div class="sc-lbl">הכנסה נטו</div><div class="sc-val">₪${fmt(tN)}</div><div class="sc-sub">לפני מס הכנסה</div></div>
-      <div class="sc c4"><div class="sc-lbl">הפרשת מס (${Math.round(CFG.TAX_RATE*100)}%)</div><div class="sc-val">₪${fmt(tT)}</div><div class="sc-sub">הערכה בלבד</div></div>
+      <div class="sc c1"><div class="sc-lbl">סה"כ הכנסות</div><div class="sc-val">₪${fmt(tAmt)}</div><div class="sc-sub">${ye.length} רשומות</div></div>
+      <div class="sc c2"><div class="sc-lbl">מע"מ לרשות המסים</div><div class="sc-val">₪${fmt(tVat)}</div><div class="sc-sub">18%</div></div>
+      <div class="sc c3"><div class="sc-lbl">מיסים</div><div class="sc-val">₪${fmt(tTax)}</div><div class="sc-sub">${Math.round(CFG.TAX_RATE*100)}% מהנטו לפני מס</div></div>
+      <div class="sc c4"><div class="sc-lbl">נטו (לאחר מע"מ + מיסים)</div><div class="sc-val">₪${fmt(tNet)}</div><div class="sc-sub">ממוצע חודשי: ₪${fmt(tNet/12)}</div></div>
+      <div class="sc c5"><div class="sc-lbl">הוצאות חומרים</div><div class="sc-val">₪${fmt(tMat)}</div><div class="sc-sub">רווח: ₪${fmt(tNet-tMat)}</div></div>
     </div>`;
 
-  for (let m = 1; m <= 12; m++) {
-    const rows = [...byM[m]].sort((a, b) => a.date.localeCompare(b.date));
-    const mI = sum(rows,'amount'), mV = sum(rows,'vat'), mN = mI - mV, mT = sum(rows,'tax');
-    const isOpen = S.open.has(m);
+  for(let m=1;m<=12;m++){
+    const rows=[...byM[m]].sort((a,b)=>a.date.localeCompare(b.date));
+    const mAmt=sum(rows,'amount'), mVat=sum(rows,'vat'), mTax=sum(rows,'tax');
+    const mNet=mAmt-mVat-mTax, mMat=sum(rows,'materials');
+    const isOpen=S.open.has(m);
 
-    h += `<div class="ms${isOpen?' open':''}" id="ms${m}">
+    h+=`<div class="ms${isOpen?' open':''}" id="ms${m}">
       <div class="mh" onclick="togM(${m})">
         <div class="mh-l"><span class="mh-name">${MONTHS[m-1]}</span><span class="mh-cnt">${rows.length}</span></div>
         <div class="mh-r">`;
 
-    if (rows.length) {
-      h += `<div class="mhs"><div class="mhs-l">מע"מ</div><div class="mhs-v">₪${fmt(mV)}</div></div>
-            <div class="mhs"><div class="mhs-l">נטו</div><div class="mhs-v">₪${fmt(mN)}</div></div>
-            <div class="mhs"><div class="mhs-l">מס</div><div class="mhs-v">₪${fmt(mT)}</div></div>
-            <div class="mh-tot">₪${fmt(mI)}</div>`;
-    } else {
-      h += `<span class="mh-emp">אין רשומות</span>`;
+    if(rows.length){
+      h+=`<div class="mhs"><div class="mhs-l">מע"מ</div><div class="mhs-v">₪${fmt(mVat)}</div></div>
+          <div class="mhs"><div class="mhs-l">מיסים</div><div class="mhs-v">₪${fmt(mTax)}</div></div>
+          <div class="mhs"><div class="mhs-l">נטו</div><div class="mhs-v">₪${fmt(mNet)}</div></div>
+          <div class="mhs"><div class="mhs-l">חומרים</div><div class="mhs-v">₪${fmt(mMat)}</div></div>
+          <div class="mh-tot">₪${fmt(mAmt)}</div>`;
+    }else{
+      h+=`<span class="mh-emp">אין רשומות</span>`;
     }
 
-    h += `<span class="mh-chev">⌄</span></div></div><div class="mb">`;
+    h+=`<span class="mh-chev">⌄</span></div></div><div class="mb">`;
 
-    if (rows.length) {
-      h += `<div class="tw"><table><thead><tr>
-          <th>תאריך</th><th>לקוח</th><th>סכום</th><th>מע"מ</th>
-          <th>נטו</th><th>מס הכנסה</th><th>תשלום</th><th>הערות</th><th></th>
+    if(rows.length){
+      // Table: תאריך | לקוח | סכום | מע"מ | מיסים | נטו | חומרים | תשלום | הערות | פעולות
+      h+=`<div class="tw"><table><thead><tr>
+          <th>תאריך</th><th>לקוח</th><th>סכום</th>
+          <th>מע"מ</th><th>מיסים</th><th>נטו</th>
+          <th>חומרים</th><th>תשלום</th><th>הערות</th><th></th>
         </tr></thead><tbody>`;
 
-      rows.forEach(e => {
-        const net = e.hasVat ? e.amount - e.vat : e.amount;
-        const pC  = PC[e.payment] || 'p-oth';
-        const neg = e.amount < 0 ? ' neg' : '';
-        h += `<tr>
+      rows.forEach(e=>{
+        const net=e.amount-(e.hasVat?e.vat:0)-(e.hasTax?e.tax:0);
+        const pC=PC[e.payment]||'p-oth';
+        const neg=e.amount<0?' neg':'';
+        h+=`<tr>
           <td class="c-date" data-lbl="תאריך">${fd(e.date)}</td>
-          <td class="c-cust" data-lbl="לקוח"><strong>${x(e.customer)}</strong>${e.invoice ? `<br><span class="inv">חשבונית ${x(e.invoice)}</span>` : ''}</td>
+          <td class="c-cust" data-lbl="לקוח">
+            <strong>${x(e.customer)}</strong>
+            ${e.invoice?`<br><span class="inv">חשבונית ${x(e.invoice)}</span>`:''}
+          </td>
           <td class="c-amt${neg}" data-lbl="סכום">₪${fmt(e.amount)}</td>
-          <td class="c-vat" data-lbl='מע"מ'>${e.hasVat ? '₪'+fmt(e.vat) : '<span class="novat">ללא</span>'}</td>
-          <td class="c-net" data-lbl="נטו">₪${fmt(net)}</td>
-          <td class="c-tax" data-lbl="מס">₪${fmt(e.tax)}</td>
+          <td class="c-vat"  data-lbl='מע"מ'>${e.hasVat?'₪'+fmt(e.vat):'<span class="tag-no">ללא</span>'}</td>
+          <td class="c-tax"  data-lbl="מיסים">${e.hasTax?'₪'+fmt(e.tax):'<span class="tag-no">ללא</span>'}</td>
+          <td class="c-net"  data-lbl="נטו">₪${fmt(net)}</td>
+          <td class="c-mat"  data-lbl="חומרים">${e.materials?'₪'+fmt(e.materials):'—'}</td>
           <td data-lbl="תשלום"><span class="pb ${pC}">${x(e.payment)}</span></td>
-          <td class="c-note" data-lbl="הערות" title="${x(e.notes)}">${x(e.notes)}</td>
+          <td class="c-note" data-lbl="הערות" title="${x(e.notes)}">${x(e.notes)||'—'}</td>
           <td class="c-act">
             <button class="ab" onclick="openEdit(${e.id})" title="עריכה">✏️</button>
             <button class="ab del" onclick="deleteEntry(${e.id})" title="מחיקה">🗑️</button>
           </td></tr>`;
       });
 
-      h += `</tbody></table></div>
+      h+=`</tbody></table></div>
         <div class="mt">
           <span class="mt-lbl">סיכום ${MONTHS[m-1]}</span>
           <div class="mt-vals">
             <div class="mti"><div class="mti-l">רשומות</div><div class="mti-v">${rows.length}</div></div>
-            <div class="mti"><div class="mti-l">סה"כ</div><div class="mti-v">₪${fmt(mI)}</div></div>
-            <div class="mti"><div class="mti-l">מע"מ</div><div class="mti-v">₪${fmt(mV)}</div></div>
-            <div class="mti"><div class="mti-l">נטו</div><div class="mti-v g">₪${fmt(mN)}</div></div>
-            <div class="mti"><div class="mti-l">הפרשת מס</div><div class="mti-v o">₪${fmt(mT)}</div></div>
+            <div class="mti"><div class="mti-l">סה"כ</div><div class="mti-v">₪${fmt(mAmt)}</div></div>
+            <div class="mti"><div class="mti-l">מע"מ</div><div class="mti-v o">₪${fmt(mVat)}</div></div>
+            <div class="mti"><div class="mti-l">מיסים</div><div class="mti-v p">₪${fmt(mTax)}</div></div>
+            <div class="mti"><div class="mti-l">נטו</div><div class="mti-v g">₪${fmt(mNet)}</div></div>
+            <div class="mti"><div class="mti-l">חומרים</div><div class="mti-v b">₪${fmt(mMat)}</div></div>
+            <div class="mti"><div class="mti-l">רווח</div><div class="mti-v g">₪${fmt(mNet-mMat)}</div></div>
           </div>
         </div>`;
     }
-    h += `<div class="add-bar"><button class="btn-add" onclick="openAdd(${m})"><span class="plus">+</span> הוסף רשומה ל${MONTHS[m-1]}</button></div></div></div>`;
+    h+=`<div class="add-bar"><button class="btn-add" onclick="openAdd(${m})"><span class="plus">+</span> הוסף רשומה ל${MONTHS[m-1]}</button></div></div></div>`;
   }
 
-  app.innerHTML = h;
+  app.innerHTML=h;
 }
 
 // ══════════════════════════════════════════════════
 //  UTILS
 // ══════════════════════════════════════════════════
-function togM(m) { S.open.has(m) ? S.open.delete(m) : S.open.add(m); const el = document.getElementById('ms'+m); if (el) el.classList.toggle('open', S.open.has(m)); }
-function chgYear(d) { S.year += d; S.open = new Set(); render(); }
-function sum(arr, k) { return arr.reduce((s, e) => s + (e[k] || 0), 0); }
-function fmt(n) { return (Math.round(n * 100) / 100).toLocaleString('he-IL', {minimumFractionDigits:2, maximumFractionDigits:2}); }
-function fd(d) { if (!d) return ''; const [y, m, day] = d.split('-'); return `${day}/${m}/${y}`; }
-function x(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-
-function chkCfg() {
-  if (CFG.CLIENT_ID.startsWith('YOUR_') || CFG.SPREADSHEET_ID.startsWith('YOUR_'))
-    document.getElementById('cfgWarn').style.display = 'block';
-}
+function togM(m){S.open.has(m)?S.open.delete(m):S.open.add(m);const el=document.getElementById('ms'+m);if(el)el.classList.toggle('open',S.open.has(m))}
+function chgYear(d){S.year+=d;S.open=new Set();render()}
+function sum(arr,k){return arr.reduce((s,e)=>s+(e[k]||0),0)}
+function fmt(n){return(Math.round(n*100)/100).toLocaleString('he-IL',{minimumFractionDigits:2,maximumFractionDigits:2})}
+function fd(d){if(!d)return'';const[y,m,day]=d.split('-');return`${day}/${m}/${y}`}
+function x(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function chkCfg(){if(CFG.CLIENT_ID.startsWith('YOUR_')||CFG.SPREADSHEET_ID.startsWith('YOUR_'))document.getElementById('cfgWarn').style.display='block'}
 
 let toastT;
-function toast(msg, type = '') {
-  const el = document.getElementById('toast');
-  el.textContent = msg; el.className = `toast show ${type}`;
-  clearTimeout(toastT); toastT = setTimeout(() => el.classList.remove('show'), 3500);
+function toast(msg,type=''){
+  const el=document.getElementById('toast');
+  el.textContent=msg;el.className=`toast show ${type}`;
+  clearTimeout(toastT);toastT=setTimeout(()=>el.classList.remove('show'),3500);
 }
 
 // ══════════════════════════════════════════════════
 //  BOOT
 // ══════════════════════════════════════════════════
-function boot() {
+function boot(){
   chkCfg();
-  // Restore token immediately — no need to wait for GIS script
-  if (!CFG.CLIENT_ID.startsWith('YOUR_') && loadTok()) {
-    S.loggedIn = true;
-    renderHdr();
-    loadData();   // start fetching data right away
-  } else {
-    renderHdr();
-    render();     // show login screen; GIS will attempt silent sign-in when ready
+  if(!CFG.CLIENT_ID.startsWith('YOUR_')&&loadTok()){
+    S.loggedIn=true; renderHdr(); loadData();
+  }else{
+    renderHdr(); render();
   }
 }
 
-document.getElementById('modal').addEventListener('click', e => { if (e.target === e.currentTarget) closeModal(); });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-document.getElementById('pwdInput').addEventListener('keydown', e => { if (e.key === 'Enter') submitPwd(); });
+document.getElementById('modal').addEventListener('click',e=>{if(e.target===e.currentTarget)closeModal()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+document.getElementById('pwdInput').addEventListener('keydown',e=>{if(e.key==='Enter')submitPwd()});
 
-window.addEventListener('DOMContentLoaded', () => {
-  if (!checkPwd()) return;  // show password screen if configured
+window.addEventListener('DOMContentLoaded',()=>{
+  if(!checkPwd())return;
   boot();
 });
 </script>
 
-<!-- Only GIS needed — no gapi.js → no COOP error -->
+<!-- GIS only — no gapi.js → no COOP error -->
 <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
 </body>
 </html>
