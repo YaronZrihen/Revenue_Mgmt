@@ -17,10 +17,10 @@
   --text:    #1e293b;
   --muted:   #64748b;
   --border:  #dde3ec;
-  /* ── Row colors: white / warm sage alternating ── */
+  /* ── Row colors: white / warm beige alternating ── */
   --r-odd:   #ffffff;
-  --r-even:  #f0f7f1;
-  --r-hover: #daeedd;
+  --r-even:  #f5f1eb;
+  --r-hover: #e8e0d4;
   --sh:      0 1px 3px rgba(0,0,0,.07);
   --sh-md:   0 4px 14px rgba(0,0,0,.1);
   --rad:     12px;
@@ -28,6 +28,9 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Heebo',system-ui,sans-serif;background:var(--bg);color:var(--text);direction:rtl;min-height:100vh}
+
+/* ── VERSION BADGE ── */
+.ver{position:fixed;top:13px;left:14px;font-size:10px;font-family:'Courier New',monospace;color:rgba(255,255,255,.5);z-index:200;pointer-events:none;letter-spacing:.3px}
 
 /* ── HEADER ── */
 .hdr{background:var(--pri);color:#fff;padding:12px 22px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;box-shadow:var(--sh-md)}
@@ -234,6 +237,9 @@ tbody td{padding:10px 11px}
 </style>
 </head>
 <body>
+
+<!-- Version badge — fixed top-left -->
+<div class="ver">v2.1.0</div>
 
 <!-- Password Screen -->
 <div class="pwd-wrap" id="pwdWrap">
@@ -758,11 +764,10 @@ function render(){
           <span class="mt-lbl">סיכום ${MONTHS[m-1]}</span>
           <div class="mt-vals">
             <div class="mti"><div class="mti-l">רשומות</div><div class="mti-v">${rows.length}</div></div>
-            <div class="mti"><div class="mti-l">סה"כ</div><div class="mti-v">₪${fmt(mAmt)}</div></div>
+            <div class="mti"><div class="mti-l">הכנסות</div><div class="mti-v g">₪${fmt(rows.filter(e=>e.amount>0).reduce((s,e)=>s+e.amount,0))}</div></div>
+            <div class="mti"><div class="mti-l">משיכות</div><div class="mti-v" style="color:var(--danger)">₪${fmt(Math.abs(rows.filter(e=>e.amount<0).reduce((s,e)=>s+e.amount,0)))}</div></div>
             <div class="mti"><div class="mti-l">מע"מ</div><div class="mti-v o">₪${fmt(mVat)}</div></div>
             <div class="mti"><div class="mti-l">מיסים</div><div class="mti-v p">₪${fmt(mTax)}</div></div>
-            <div class="mti"><div class="mti-l">נטו</div><div class="mti-v g">₪${fmt(mNet)}</div></div>
-            <div class="mti"><div class="mti-l">חומרים</div><div class="mti-v b">₪${fmt(mMat)}</div></div>
             <div class="mti"><div class="mti-l">רווח</div><div class="mti-v g">₪${fmt(mNet-mMat)}</div></div>
           </div>
         </div>`;
