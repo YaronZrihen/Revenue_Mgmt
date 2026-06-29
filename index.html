@@ -772,7 +772,6 @@ function render(){
     const isOpen=S.open.has(m);
 
     // progress bar width relative to best month
-    const mInc = rows.filter(e=>e.amount>0).reduce((s,e)=>s+e.amount,0);
     const barPct = Math.round((mInc / maxMonthInc) * 100);
     const emptyCls = rows.length === 0 ? ' empty' : '';
     const curCls   = m === curMonth    ? ' cur'   : '';
