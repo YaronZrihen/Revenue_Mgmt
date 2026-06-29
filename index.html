@@ -83,8 +83,8 @@ body{font-family:'Heebo',system-ui,sans-serif;background:var(--bg);color:var(--t
 .btn-yr:hover{background:var(--pri);color:#fff;border-color:var(--pri)}
 .ym{font-size:13px;color:var(--muted)}
 
-/* ── ANNUAL CARDS ── */
-.ann-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
+/* ── ANNUAL CARDS — 2 cols × 3 rows always ── */
+.ann-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:20px}
 .sc{background:var(--surface);border-radius:var(--rad);padding:13px 15px;box-shadow:var(--sh);border-top:3px solid}
 .sc.c1{border-top-color:#10b981}.sc.c2{border-top-color:#f43f5e}
 .sc.c3{border-top-color:#f59e0b}.sc.c4{border-top-color:#6366f1}
@@ -210,13 +210,12 @@ tbody td{padding:10px 11px}
 
 /* ── MOBILE ── */
 @media(max-width:900px){
-  .ann-grid{grid-template-columns:repeat(3,1fr)}
   .mhs:nth-child(n+4){display:none}
 }
 @media(max-width:640px){
   .main{padding:10px 8px 60px}
   /* compact summary cards */
-  .ann-grid{grid-template-columns:repeat(2,1fr);gap:7px;margin-bottom:14px}
+  .ann-grid{gap:7px;margin-bottom:14px}
   .sc{padding:9px 11px;border-radius:10px}
   .sc-lbl{font-size:9.5px;letter-spacing:.3px}
   .sc-val{font-size:16px;margin-top:3px}
@@ -259,7 +258,7 @@ tbody td{padding:10px 11px}
     <span class="logo-icon">💰</span>
     <div>
       <h1>ניהול הכנסות</h1>
-      <p>מערכת מעקב עסקית <span class="ver-tag">v2.3.0</span></p>
+      <p>מערכת מעקב עסקית <span class="ver-tag">v2.4.0</span></p>
     </div>
   </div>
   <div id="hdrAuth">
@@ -725,35 +724,38 @@ function render(){
       <span class="ym">${ye.length} רשומות | ${activeMonths} חודשים פעילים</span>
     </div>
     <div class="ann-grid">
+      <!-- שורה 1: הכנסות | מע"מ+מיסים -->
       <div class="sc c1">
         <div class="sc-lbl">סה"כ הכנסות</div>
         <div class="sc-val">₪${fmt(tPos)}</div>
         <div class="sc-sub">${ye.filter(e=>e.amount>0).length} רשומות חיוביות</div>
-      </div>
-      <div class="sc c2">
-        <div class="sc-lbl">סה"כ משיכות</div>
-        <div class="sc-val" style="color:#f43f5e">₪${fmt(tNeg)}</div>
-        <div class="sc-sub">${ye.filter(e=>e.amount<0).length} רשומות שליליות</div>
       </div>
       <div class="sc c3">
         <div class="sc-lbl">מע"מ + מיסים</div>
         <div class="sc-val">₪${fmt(tCombinedDeductions)}</div>
         <div class="sc-sub">מע"מ ₪${fmt(tVat)} | מס ₪${fmt(tTax)}</div>
       </div>
+      <!-- שורה 2: נטו | רווח -->
       <div class="sc c4">
-        <div class="sc-lbl">נטו</div>
+        <div class="sc-lbl">נטו לאחר מיסים</div>
         <div class="sc-val">₪${fmt(tNet)}</div>
-        <div class="sc-sub">לאחר מע"מ + מיסים</div>
-      </div>
-      <div class="sc c5">
-        <div class="sc-lbl">ממוצע חודשי</div>
-        <div class="sc-val">₪${fmt(avgNet)}</div>
-        <div class="sc-sub">${activeMonths} חודשים פעילים</div>
+        <div class="sc-sub">ממוצע ל-${activeMonths} חודשים: ₪${fmt(avgNet)}</div>
       </div>
       <div class="sc c6">
-        <div class="sc-lbl">חומרים / רווח</div>
+        <div class="sc-lbl">רווח</div>
         <div class="sc-val">₪${fmt(tProfit)}</div>
-        <div class="sc-sub">חומרים ₪${fmt(tMat)} | ממוצע ₪${fmt(tProfit/activeMonths)}</div>
+        <div class="sc-sub">ממוצע חודשי: ₪${fmt(tProfit/activeMonths)}</div>
+      </div>
+      <!-- שורה 3: משיכות | ממוצע חודשי -->
+      <div class="sc c2">
+        <div class="sc-lbl">סה"כ משיכות</div>
+        <div class="sc-val" style="color:#f43f5e">₪${fmt(tNeg)}</div>
+        <div class="sc-sub">${ye.filter(e=>e.amount<0).length} רשומות שליליות</div>
+      </div>
+      <div class="sc c5">
+        <div class="sc-lbl">ממוצע חודשי (נטו)</div>
+        <div class="sc-val">₪${fmt(avgNet)}</div>
+        <div class="sc-sub">${activeMonths} חודשים פעילים</div>
       </div>
     </div>`;
 
