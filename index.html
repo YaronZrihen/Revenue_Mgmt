@@ -705,17 +705,17 @@ function render(){
   for(let m=1;m<=12;m++) byM[m]=[];
   ye.forEach(e=>{const m=parseInt(e.date.split('-')[1]);if(byM[m])byM[m].push(e)});
 
+  // ── stats for accordion display (must come before cards) ──
+  const curMonth   = (NOW.getFullYear() === S.year) ? NOW.getMonth() + 1 : null;
+  const activeMonths = Object.values(byM).filter(rows => rows.length > 0).length || 1;
+  const maxMonthInc  = Math.max(1, ...Object.values(byM).map(rows =>
+    rows.filter(e => e.amount > 0).reduce((s, e) => s + e.amount, 0)));
+
   const tPos = ye.filter(e=>e.amount>0).reduce((s,e)=>s+e.amount,0);
   const tNeg = Math.abs(ye.filter(e=>e.amount<0).reduce((s,e)=>s+e.amount,0));
   const tCombinedDeductions = tVat + tTax;
   const avgNet  = tNet / activeMonths;
   const tProfit = tNet - tMat;
-
-  // ── stats for the accordion display ──
-  const curMonth = (NOW.getFullYear() === S.year) ? NOW.getMonth() + 1 : null;
-  const activeMonths = Object.values(byM).filter(rows => rows.length > 0).length || 1;
-  const maxMonthInc  = Math.max(1, ...Object.values(byM).map(rows =>
-    rows.filter(e => e.amount > 0).reduce((s, e) => s + e.amount, 0)));
 
   let h=`
     <div class="year-nav">
