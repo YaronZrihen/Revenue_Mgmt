@@ -258,7 +258,7 @@ tbody td{padding:10px 11px}
     <span class="logo-icon">💰</span>
     <div>
       <h1>ניהול הכנסות</h1>
-      <p>מערכת מעקב עסקית <span class="ver-tag">v2.4.0</span></p>
+      <p>מערכת מעקב עסקית <span class="ver-tag">v2.5.0</span></p>
     </div>
   </div>
   <div id="hdrAuth">
@@ -695,9 +695,13 @@ function render(){
 
   const ye=S.entries.filter(e=>e.date.startsWith(String(S.year)));
 
-  // annual totals
-  const tAmt=sum(ye,'amount'), tVat=sum(ye,'vat'), tTax=sum(ye,'tax');
-  const tNet=tAmt-tVat-tTax, tMat=sum(ye,'materials');
+  // annual totals — tNet = income only (tPos) minus VAT and taxes
+  const tVat=sum(ye,'vat'), tTax=sum(ye,'tax'), tMat=sum(ye,'materials');
+  const tPos = ye.filter(e=>e.amount>0).reduce((s,e)=>s+e.amount,0);
+  const tNeg = Math.abs(ye.filter(e=>e.amount<0).reduce((s,e)=>s+e.amount,0));
+  const tNet  = tPos - tVat - tTax;          // הכנסות בלבד פחות מעמ ומיסים
+  const tProfit  = tNet - tMat;               // נטו פחות חומרים
+  const tBalance = tNet - tNeg;               // יתרה כללית — נטו פחות משיכות
 
   // group by month
   const byM={};
@@ -710,11 +714,9 @@ function render(){
   const maxMonthInc  = Math.max(1, ...Object.values(byM).map(rows =>
     rows.filter(e => e.amount > 0).reduce((s, e) => s + e.amount, 0)));
 
-  const tPos = ye.filter(e=>e.amount>0).reduce((s,e)=>s+e.amount,0);
-  const tNeg = Math.abs(ye.filter(e=>e.amount<0).reduce((s,e)=>s+e.amount,0));
   const tCombinedDeductions = tVat + tTax;
-  const avgNet  = tNet / activeMonths;
-  const tProfit = tNet - tMat;
+  const avgNet     = tNet / activeMonths;
+  const avgBalance = tBalance / activeMonths;
 
   let h=`
     <div class="year-nav">
@@ -724,7 +726,7 @@ function render(){
       <span class="ym">${ye.length} רשומות | ${activeMonths} חודשים פעילים</span>
     </div>
     <div class="ann-grid">
-      <!-- שורה 1: הכנסות | מע"מ+מיסים -->
+      <!-- שורה 1 -->
       <div class="sc c1">
         <div class="sc-lbl">סה"כ הכנסות</div>
         <div class="sc-val">₪${fmt(tPos)}</div>
@@ -735,34 +737,38 @@ function render(){
         <div class="sc-val">₪${fmt(tCombinedDeductions)}</div>
         <div class="sc-sub">מע"מ ₪${fmt(tVat)} | מס ₪${fmt(tTax)}</div>
       </div>
-      <!-- שורה 2: נטו | רווח -->
+      <!-- שורה 2 -->
       <div class="sc c4">
         <div class="sc-lbl">נטו לאחר מיסים</div>
         <div class="sc-val">₪${fmt(tNet)}</div>
-        <div class="sc-sub">ממוצע ל-${activeMonths} חודשים: ₪${fmt(avgNet)}</div>
+        <div class="sc-sub">חומרים ₪${fmt(tMat)} | ממוצע ₪${fmt(avgNet)}</div>
       </div>
       <div class="sc c6">
-        <div class="sc-lbl">רווח</div>
+        <div class="sc-lbl">רווח (נטו פחות חומרים)</div>
         <div class="sc-val">₪${fmt(tProfit)}</div>
-        <div class="sc-sub">ממוצע חודשי: ₪${fmt(tProfit/activeMonths)}</div>
+        <div class="sc-sub">ממוצע חודשי ₪${fmt(tProfit/activeMonths)}</div>
       </div>
-      <!-- שורה 3: משיכות | ממוצע חודשי -->
+      <!-- שורה 3 -->
       <div class="sc c2">
         <div class="sc-lbl">סה"כ משיכות</div>
         <div class="sc-val" style="color:#f43f5e">₪${fmt(tNeg)}</div>
-        <div class="sc-sub">${ye.filter(e=>e.amount<0).length} רשומות שליליות</div>
+        <div class="sc-sub">ממוצע חודשי ₪${fmt(tNeg/activeMonths)}</div>
       </div>
       <div class="sc c5">
-        <div class="sc-lbl">ממוצע חודשי (נטו)</div>
-        <div class="sc-val">₪${fmt(avgNet)}</div>
-        <div class="sc-sub">${activeMonths} חודשים פעילים</div>
+        <div class="sc-lbl">יתרה כללית</div>
+        <div class="sc-val" style="${tBalance<0?'color:#f43f5e':''}">₪${fmt(tBalance)}</div>
+        <div class="sc-sub">ממוצע חודשי ₪${fmt(avgBalance)}</div>
       </div>
     </div>`;
 
   for(let m=1;m<=12;m++){
     const rows=[...byM[m]].sort((a,b)=>a.date.localeCompare(b.date));
-    const mAmt=sum(rows,'amount'), mVat=sum(rows,'vat'), mTax=sum(rows,'tax');
-    const mNet=mAmt-mVat-mTax, mMat=sum(rows,'materials');
+    const mInc=rows.filter(e=>e.amount>0).reduce((s,e)=>s+e.amount,0);
+    const mNeg=Math.abs(rows.filter(e=>e.amount<0).reduce((s,e)=>s+e.amount,0));
+    const mVat=sum(rows,'vat'), mTax=sum(rows,'tax'), mMat=sum(rows,'materials');
+    const mNet=mInc-mVat-mTax;              // הכנסות בלבד פחות מע"מ ומיסים
+    const mProfit=mNet-mMat;
+    const mBalance=mNet-mNeg;
     const isOpen=S.open.has(m);
 
     // progress bar width relative to best month
@@ -777,11 +783,11 @@ function render(){
         <div class="mh-r">`;
 
     if(rows.length){
-      h+=`<div class="mhs"><div class="mhs-l">מע"מ</div><div class="mhs-v">₪${fmt(mVat)}</div></div>
-          <div class="mhs"><div class="mhs-l">מיסים</div><div class="mhs-v">₪${fmt(mTax)}</div></div>
+      h+=`<div class="mhs"><div class="mhs-l">הכנסות</div><div class="mhs-v">₪${fmt(mInc)}</div></div>
+          <div class="mhs"><div class="mhs-l">משיכות</div><div class="mhs-v" style="color:#fca5a5">₪${fmt(mNeg)}</div></div>
+          <div class="mhs"><div class="mhs-l">מע"מ+מס</div><div class="mhs-v">₪${fmt(mVat+mTax)}</div></div>
           <div class="mhs"><div class="mhs-l">נטו</div><div class="mhs-v">₪${fmt(mNet)}</div></div>
-          <div class="mhs"><div class="mhs-l">חומרים</div><div class="mhs-v">₪${fmt(mMat)}</div></div>
-          <div class="mh-tot">₪${fmt(mAmt)}</div>`;
+          <div class="mh-tot" style="${mBalance<0?'color:#fca5a5':''}">₪${fmt(mBalance)}</div>`;
     }else{
       h+=`<span class="mh-emp">אין רשומות</span>`;
     }
@@ -826,11 +832,11 @@ function render(){
           <span class="mt-lbl">סיכום ${MONTHS[m-1]}</span>
           <div class="mt-vals">
             <div class="mti"><div class="mti-l">רשומות</div><div class="mti-v">${rows.length}</div></div>
-            <div class="mti"><div class="mti-l">הכנסות</div><div class="mti-v g">₪${fmt(rows.filter(e=>e.amount>0).reduce((s,e)=>s+e.amount,0))}</div></div>
-            <div class="mti"><div class="mti-l">משיכות</div><div class="mti-v" style="color:var(--danger)">₪${fmt(Math.abs(rows.filter(e=>e.amount<0).reduce((s,e)=>s+e.amount,0)))}</div></div>
-            <div class="mti"><div class="mti-l">מע"מ</div><div class="mti-v o">₪${fmt(mVat)}</div></div>
-            <div class="mti"><div class="mti-l">מיסים</div><div class="mti-v p">₪${fmt(mTax)}</div></div>
-            <div class="mti"><div class="mti-l">רווח</div><div class="mti-v g">₪${fmt(mNet-mMat)}</div></div>
+            <div class="mti"><div class="mti-l">הכנסות</div><div class="mti-v g">₪${fmt(mInc)}</div></div>
+            <div class="mti"><div class="mti-l">משיכות</div><div class="mti-v" style="color:var(--danger)">₪${fmt(mNeg)}</div></div>
+            <div class="mti"><div class="mti-l">מע"מ+מס</div><div class="mti-v o">₪${fmt(mVat+mTax)}</div></div>
+            <div class="mti"><div class="mti-l">נטו</div><div class="mti-v g">₪${fmt(mNet)}</div></div>
+            <div class="mti"><div class="mti-l">יתרה</div><div class="mti-v${mBalance<0?' style=color:#ef4444':''} g">₪${fmt(mBalance)}</div></div>
           </div>
         </div>`;
     }
