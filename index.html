@@ -93,19 +93,29 @@ body{font-family:'Heebo',system-ui,sans-serif;background:var(--bg);color:var(--t
 .sc-sub{font-size:11.5px;color:var(--muted);margin-top:2px}
 
 /* ── MONTH SECTION ── */
-.ms{background:var(--surface);border-radius:var(--rad);box-shadow:var(--sh);margin-bottom:12px;overflow:hidden}
-.mh{background:var(--pri);color:#fff;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none;transition:background .15s}
+.ms{background:var(--surface);border-radius:var(--rad);box-shadow:var(--sh);margin-bottom:10px;overflow:hidden;transition:box-shadow .15s}
+.ms.open{box-shadow:0 3px 14px rgba(0,0,0,.12)}
+/* Month header */
+.mh{background:var(--pri);color:#fff;padding:13px 18px 16px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none;transition:background .15s;position:relative;overflow:hidden}
 .mh:hover{background:var(--pri2)}
+/* Relative-income progress bar at bottom of header */
+.mh-prog{position:absolute;bottom:0;right:0;height:3px;background:linear-gradient(to left,rgba(16,185,129,.9),rgba(16,185,129,.15));transition:width .5s ease;pointer-events:none}
+/* Empty months — subdued */
+.ms.empty .mh{background:#243759;opacity:.65}
+.ms.empty .mh:hover{opacity:1;background:var(--pri)}
+/* Current month — subtle green outline */
+.ms.cur .mh{box-shadow:inset 0 0 0 2px rgba(16,185,129,.45)}
+.ms.cur .mh-name::after{content:'●';font-size:7px;vertical-align:middle;margin-right:6px;color:var(--acc);position:relative;top:-2px}
 .mh-l{display:flex;align-items:center;gap:10px}
 .mh-name{font-size:16px;font-weight:700}
-.mh-cnt{font-size:12px;color:rgba(255,255,255,.5);background:rgba(255,255,255,.1);padding:1px 8px;border-radius:100px}
+.mh-cnt{font-size:11.5px;color:rgba(255,255,255,.5);background:rgba(255,255,255,.1);padding:1px 9px;border-radius:100px}
 .mh-r{display:flex;align-items:center;gap:16px}
 .mhs{text-align:center}
-.mhs-l{font-size:9px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px}
+.mhs-l{font-size:9px;color:rgba(255,255,255,.48);text-transform:uppercase;letter-spacing:.5px}
 .mhs-v{font-size:13px;font-weight:600;font-feature-settings:'tnum'}
-.mh-tot{font-size:20px;font-weight:800;font-feature-settings:'tnum'}
-.mh-emp{font-size:13px;color:rgba(255,255,255,.4)}
-.mh-chev{font-size:18px;transition:transform .2s;color:rgba(255,255,255,.6);margin-right:2px}
+.mh-tot{font-size:20px;font-weight:800;font-feature-settings:'tnum';padding-right:4px;border-right:1px solid rgba(255,255,255,.15);margin-right:2px}
+.mh-emp{font-size:12px;color:rgba(255,255,255,.35);font-style:italic}
+.mh-chev{font-size:18px;transition:transform .2s;color:rgba(255,255,255,.55)}
 .ms.open .mh-chev{transform:rotate(180deg)}
 .mb{display:none}
 .ms.open .mb{display:block}
@@ -239,7 +249,7 @@ tbody td{padding:10px 11px}
 <body>
 
 <!-- Version badge — fixed top-left -->
-<div class="ver">v2.1.0</div>
+<div class="ver">v2.2.0</div>
 
 <!-- Password Screen -->
 <div class="pwd-wrap" id="pwdWrap">
@@ -364,8 +374,8 @@ tbody td{padding:10px 11px}
 //  ⚙️  CONFIG
 // ══════════════════════════════════════════════════
 const CFG = {
-  CLIENT_ID:      '165321324693-jo1oiqo6hgghckl7f0bedgat5mjqhm9i.apps.googleusercontent.com',
-  SPREADSHEET_ID: '1Bi96Qf-TELHpuUtg_S2ZKF6-TkYydQGmaCmWXDBRpS0',
+  CLIENT_ID:      'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com',
+  SPREADSHEET_ID: 'YOUR_SPREADSHEET_ID',
   SHEET_NAME:     'הכנסות',
   VAT_RATE:       18 / 118,   // 18% מע"מ
   TAX_RATE:       0.17,       // 17% מיסים — ניתן לשינוי
@@ -690,19 +700,25 @@ function render(){
   for(let m=1;m<=12;m++) byM[m]=[];
   ye.forEach(e=>{const m=parseInt(e.date.split('-')[1]);if(byM[m])byM[m].push(e)});
 
+  // ── stats for the accordion display ──
+  const curMonth = (NOW.getFullYear() === S.year) ? NOW.getMonth() + 1 : null;
+  const activeMonths = Object.values(byM).filter(rows => rows.length > 0).length || 1;
+  const maxMonthInc  = Math.max(1, ...Object.values(byM).map(rows =>
+    rows.filter(e => e.amount > 0).reduce((s, e) => s + e.amount, 0)));
+
   let h=`
     <div class="year-nav">
       <button class="btn-yr" onclick="chgYear(-1)">&#8249;</button>
       <h2>${S.year}</h2>
       <button class="btn-yr" onclick="chgYear(1)">&#8250;</button>
-      <span class="ym">${ye.length} רשומות</span>
+      <span class="ym">${ye.length} רשומות | ${activeMonths} חודשים פעילים</span>
     </div>
     <div class="ann-grid">
       <div class="sc c1"><div class="sc-lbl">סה"כ הכנסות</div><div class="sc-val">₪${fmt(tAmt)}</div><div class="sc-sub">${ye.length} רשומות</div></div>
       <div class="sc c2"><div class="sc-lbl">מע"מ לרשות המסים</div><div class="sc-val">₪${fmt(tVat)}</div><div class="sc-sub">18%</div></div>
       <div class="sc c3"><div class="sc-lbl">מיסים</div><div class="sc-val">₪${fmt(tTax)}</div><div class="sc-sub">${Math.round(CFG.TAX_RATE*100)}% מהנטו לפני מס</div></div>
-      <div class="sc c4"><div class="sc-lbl">נטו (לאחר מע"מ + מיסים)</div><div class="sc-val">₪${fmt(tNet)}</div><div class="sc-sub">ממוצע חודשי: ₪${fmt(tNet/12)}</div></div>
-      <div class="sc c5"><div class="sc-lbl">הוצאות חומרים</div><div class="sc-val">₪${fmt(tMat)}</div><div class="sc-sub">רווח: ₪${fmt(tNet-tMat)}</div></div>
+      <div class="sc c4"><div class="sc-lbl">נטו (לאחר מע"מ + מיסים)</div><div class="sc-val">₪${fmt(tNet)}</div><div class="sc-sub">ממוצע ל-${activeMonths} חודשים: ₪${fmt(tNet/activeMonths)}</div></div>
+      <div class="sc c5"><div class="sc-lbl">הוצאות חומרים</div><div class="sc-val">₪${fmt(tMat)}</div><div class="sc-sub">רווח: ₪${fmt(tNet-tMat)} | ממוצע: ₪${fmt((tNet-tMat)/activeMonths)}</div></div>
     </div>`;
 
   for(let m=1;m<=12;m++){
@@ -711,7 +727,13 @@ function render(){
     const mNet=mAmt-mVat-mTax, mMat=sum(rows,'materials');
     const isOpen=S.open.has(m);
 
-    h+=`<div class="ms${isOpen?' open':''}" id="ms${m}">
+    // progress bar width relative to best month
+    const mInc = rows.filter(e=>e.amount>0).reduce((s,e)=>s+e.amount,0);
+    const barPct = Math.round((mInc / maxMonthInc) * 100);
+    const emptyCls = rows.length === 0 ? ' empty' : '';
+    const curCls   = m === curMonth    ? ' cur'   : '';
+
+    h+=`<div class="ms${isOpen?' open':''}${emptyCls}${curCls}" id="ms${m}">
       <div class="mh" onclick="togM(${m})">
         <div class="mh-l"><span class="mh-name">${MONTHS[m-1]}</span><span class="mh-cnt">${rows.length}</span></div>
         <div class="mh-r">`;
@@ -726,7 +748,9 @@ function render(){
       h+=`<span class="mh-emp">אין רשומות</span>`;
     }
 
-    h+=`<span class="mh-chev">⌄</span></div></div><div class="mb">`;
+    h+=`<span class="mh-chev">⌄</span></div>
+        <div class="mh-prog" style="width:${barPct}%"></div>
+      </div><div class="mb">`;
 
     if(rows.length){
       // Table: תאריך | לקוח | סכום | מע"מ | מיסים | נטו | חומרים | תשלום | הערות | פעולות
